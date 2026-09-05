@@ -1,3 +1,4 @@
+<!-- sourced from index.md and _data/drawings.yml -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,459 +6,225 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>～への入り口 ✴︎ Deen David</title>
 <meta name="description" content="With digital or on paper.">
-<link rel="icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg" type="image/x-icon">
-<link rel="apple-touch-icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg">
-<script>
-(function () {
-  var root = document.documentElement;
-  try {
-    var t = localStorage.getItem('theme');
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    root.setAttribute('data-theme', t || (prefersDark ? 'dark' : 'light'));
-  } catch (e) { root.setAttribute('data-theme', 'light'); }
-})();
-</script>
+<link rel="icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg">
 <style>
-  :root{
-    --text:#1a1714;
-    --text-rgb:26,23,20;
-    --bg:#f3eee6;
-    --sheet:#fbf8f2;
-    --shadow: 0 10px 28px rgba(40,28,16,.12), 0 2px 6px rgba(40,28,16,.08);
-  }
-  [data-theme=dark]{
-    --text:#eee8df;
-    --text-rgb:238,232,223;
-    --bg:#141210;
-    --sheet:#1c1a17;
-    --shadow: 0 12px 32px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.3);
-    color-scheme:dark;
-  }
-  *{ box-sizing:border-box; }
-  html{ font-family:Helvetica,Helvetica Neue,Arial,sans-serif; font-size:15px; line-height:1.6; text-rendering:optimizeLegibility; }
-  body{
-    margin:0; color:var(--text); background:var(--bg); min-height:100vh;
-    background-image:
-      radial-gradient(rgba(var(--text-rgb),.035) 0.7px, transparent 0.7px),
-      radial-gradient(rgba(var(--text-rgb),.02) 0.8px, transparent 0.8px);
-    background-size: 7px 7px, 13px 13px;
-    background-position: 0 0, 4px 6px;
-    transition:background-color .25s ease,color .25s ease;
-  }
-  a{ color:inherit; text-decoration:none; }
-  a:hover{ opacity:.55; }
-  .bar{ display:flex; align-items:center; justify-content:space-between; padding:22px 28px 0; }
-  .site-title{ margin:0; font-size:15px; font-weight:400; }
-  .bar-right{ display:flex; align-items:center; gap:18px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
-  .bar-right a{ opacity:.7; }
-  .theme-toggle{ background:none; border:0; padding:0; cursor:pointer; display:inline-flex; align-items:center; }
-  .theme-toggle-track{ position:relative; width:1.75em; height:.875em; border:1px solid rgba(var(--text-rgb),.35); border-radius:999px; }
-  .theme-toggle-thumb{ position:absolute; top:50%; left:.125em; width:.5em; height:.5em; border-radius:50%; background:rgba(var(--text-rgb),.55); transform:translateY(-50%); transition:left .2s ease; }
-  [data-theme=dark] .theme-toggle-thumb{ left:calc(100% - .625em); background:rgba(var(--text-rgb),.9); }
-  .intro{ text-align:center; max-width:28em; margin:4.2em auto 3em; padding:0 24px; }
-  .intro h2{ margin:0 0 .7em; font-size:18px; font-weight:400; }
-  .intro p{ margin:0; font-size:14px; line-height:1.55; color:rgba(var(--text-rgb),.72); }
-  .count{ margin:.85em 0 0; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(var(--text-rgb),.45); }
-  .board{
-    width:min(1180px, calc(100% - 56px));
-    margin:0 auto 3em;
-    display:grid;
-    grid-template-columns:repeat(3, minmax(0,1fr));
-    gap:3.4rem 2.4rem;
-    align-items:start;
-  }
-  .piece{
-    display:flex; flex-direction:column; align-items:center; gap:1.05rem;
-    margin-top:var(--drop, 0px);
-  }
-  .sheet{
-    position:relative;
-    display:block; width:100%; margin:0; padding:0; border:0;
-    background:var(--sheet);
-    color:inherit; font:inherit;
-    cursor:pointer;
-    box-shadow:var(--shadow);
-    transform:rotate(var(--tilt, 0deg));
-    transform-origin:50% 8%;
-    transition:transform .35s ease, box-shadow .35s ease;
-  }
-  .sheet:hover, .sheet:focus-visible{
-    transform:rotate(0deg) translateY(-4px) scale(1.012);
-    box-shadow: 0 18px 40px rgba(40,28,16,.16), 0 3px 8px rgba(40,28,16,.1);
-    outline:none;
-  }
-  [data-theme=dark] .sheet:hover, [data-theme=dark] .sheet:focus-visible{
-    box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 3px 8px rgba(0,0,0,.35);
-  }
-  .sheet img{
-    display:block; width:100%; height:auto; vertical-align:middle;
-    opacity:0; transition:opacity .5s ease;
-    background:rgba(var(--text-rgb),.04);
-  }
-  .sheet img.on{ opacity:1; }
-  .pin{
-    position:absolute;
-    top:-18px;
-    left:var(--pin-x, 46%);
-    width:28px; height:52px;
-    z-index:2;
-    pointer-events:none;
-    transform:rotate(var(--pin-tilt, -8deg));
-    filter:drop-shadow(0 2px 2px rgba(0,0,0,.28));
-    transition:transform .45s cubic-bezier(.2,.75,.2,1), opacity .35s ease;
-    transform-origin:50% 8%;
-  }
-  .piece.unclipped .pin{
-    transform:translateY(-34px) rotate(-26deg);
-    opacity:0;
-  }
-  .piece.unclipped .sheet{
-    transform:rotate(0deg) translateY(-2px);
-  }
-  .label{
-    margin:0;
-    max-width:100%;
-    text-align:center;
-    font-size:11px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:rgba(var(--text-rgb),.48);
-    line-height:1.45;
-  }
-  .status{ text-align:center; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(var(--text-rgb),.45); min-height:1.4em; margin:0 0 2em; }
-  footer{
-    width:min(1180px, calc(100% - 56px));
-    margin:0 auto; padding:0 0 36px;
-    display:flex; justify-content:space-between; gap:1em; flex-wrap:wrap;
-    font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(var(--text-rgb),.4);
-  }
-  .lb{
-    position:fixed; inset:0; z-index:30;
-    display:none; align-items:center; justify-content:center;
-    padding:3.2em 4em 4.4em;
-    background:rgba(20,16,12,.88);
-    backdrop-filter:blur(10px);
-  }
-  .lb.on{ display:flex; }
-  .lb-frame{
-    position:relative;
-    max-width:min(92vw, 1280px);
-    max-height:82vh;
-    display:flex; flex-direction:column; align-items:center; gap:1rem;
-  }
-  .lb-shot{
-    position:relative;
-    background:var(--sheet);
-    box-shadow: 0 24px 60px rgba(0,0,0,.4);
-    max-height:74vh;
-  }
-  .lb-shot img{
-    display:block;
-    max-width:min(90vw, 1200px);
-    max-height:74vh;
-    object-fit:contain;
-  }
-  .lb-pin{
-    position:absolute; top:-20px; left:50%; width:32px; height:58px;
-    transform:translateX(-50%) rotate(-6deg);
-    filter:drop-shadow(0 2px 2px rgba(0,0,0,.35));
-    pointer-events:none;
-    opacity:0;
-  }
-  .lb.clipping .lb-pin{
-    animation:clip-off .55s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-  .lb.clipping-back .lb-pin{
-    animation:clip-on .5s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-  @keyframes clip-off{
-    0% { opacity:1; transform:translateX(-50%) rotate(-6deg) translateY(0); }
-    100% { opacity:0; transform:translateX(-50%) rotate(-28deg) translateY(-42px); }
-  }
-  @keyframes clip-on{
-    0% { opacity:0; transform:translateX(-50%) rotate(-28deg) translateY(-42px); }
-    100% { opacity:1; transform:translateX(-50%) rotate(-6deg) translateY(0); }
-  }
-  .lb-meta{
-    color:#f4efe6;
-    font-size:11px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    text-align:center;
-  }
-  .lb-meta a{ opacity:.7; }
-  .lb-x,.lb-prev,.lb-next,.lb-back{
-    position:absolute; background:none; border:0; color:#f4efe6;
-    cursor:pointer; font-family:Helvetica,Helvetica Neue,Arial,sans-serif;
-  }
-  .lb-x{ top:1em; right:1.2em; font-size:28px; line-height:1; padding:8px; }
-  .lb-prev,.lb-next{
-    top:50%; transform:translateY(-50%); font-size:32px; line-height:1; padding:10px;
-  }
-  .lb-prev{ left:.3em; }
-  .lb-next{ right:.3em; }
-  .lb-back{
-    left:50%; bottom:1.2em; transform:translateX(-50%);
-    font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.8; padding:8px 12px;
-  }
-  .lb-back:hover, .lb-x:hover, .lb-prev:hover, .lb-next:hover{ opacity:1; }
-  @media (prefers-reduced-motion:reduce){
-    .sheet, .pin, .lb-pin{ transition:none; animation:none !important; }
-  }
-  @media (max-width:920px){
-    .board{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:2.6rem 1.6rem; }
-  }
-  @media (max-width:720px){
-    .bar{ padding:18px 16px 0; }
-    .board{ width:calc(100% - 28px); grid-template-columns:1fr; gap:2.4rem; }
-    .piece{ margin-top:0 !important; }
-    .intro{ margin:3em auto 2em; }
-    .lb{ padding:4.5em 1.2em 4em; }
-    .lb-prev,.lb-next{ font-size:26px; }
-  }
+:root{--ink:#1a1714;--muted:rgba(26,23,20,.5);--bg:#f4efe6;--sheet:#fbf8f3;--gap:2.4rem 1.8rem}
+@media(prefers-color-scheme:dark){:root{--ink:#eee8df;--muted:rgba(238,232,223,.5);--bg:#141210;--sheet:#1c1a17}}
+*{box-sizing:border-box}
+html{font:15px/1.6 Helvetica,Helvetica Neue,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+body{margin:0}
+a{color:inherit;text-decoration:none}
+a:hover{opacity:.55}
+.bar,.foot{width:min(1100px,calc(100% - 48px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1em;flex-wrap:wrap}
+.bar{padding:22px 0 0;font-size:15px}
+.nav{display:flex;gap:18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.nav a{opacity:.7}
+.intro{text-align:center;max-width:28em;margin:4.2em auto 2.8em;padding:0 24px}
+.intro h1{margin:0 0 .6em;font-size:18px;font-weight:400}
+.intro p{margin:0;color:var(--muted)}
+.board{width:min(1100px,calc(100% - 48px));margin:0 auto 4em;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);align-items:start}
+.piece{margin:0;padding:0;min-width:0}
+.sheet{position:relative;display:block;background:var(--sheet);box-shadow:0 8px 22px rgba(40,28,16,.1),0 1px 3px rgba(40,28,16,.06)}
+.sheet img{display:block;width:100%;height:auto;vertical-align:middle}
+.sheet:before{content:"";position:absolute;top:-16px;left:50%;width:26px;height:48px;transform:translateX(-50%) rotate(var(--r,-8deg));background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 68'><path d='M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2' fill='none' stroke='%238a929b' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;filter:drop-shadow(0 2px 1px rgba(0,0,0,.25));pointer-events:none;z-index:1}
+.piece:nth-child(3n){--r:7deg}
+.piece:nth-child(3n+2){--r:-4deg}
+.sheet:hover{opacity:1;transform:translateY(-2px);box-shadow:0 14px 28px rgba(40,28,16,.14)}
+figcaption{margin:.9em 0 0;text-align:center;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.foot{padding:0 0 36px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lb{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:4em 3em 5em;background:rgba(20,16,12,.9);opacity:0;pointer-events:none;transition:opacity .25s}
+.lb:target{opacity:1;pointer-events:auto}
+.lb img{max-width:min(92vw,1200px);max-height:78vh;object-fit:contain;background:var(--sheet);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.lb .pin{position:absolute;top:calc(50% - 39vh);left:50%;width:30px;height:54px;transform:translateX(-50%);background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 68'><path d='M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2' fill='none' stroke='%23c5cdd6' stroke-width='3.2' stroke-linecap='round'/></svg>") center/contain no-repeat;opacity:0}
+.lb:target .pin{animation:off .5s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes off{0%{opacity:1;transform:translateX(-50%) rotate(-6deg)}100%{opacity:0;transform:translateX(-50%) rotate(-26deg) translateY(-36px)}}
+.lb .x,.lb .p,.lb .n,.lb .back{position:absolute;color:#f4efe6;background:0;border:0;font:inherit}
+.lb .x{top:1rem;right:1.2rem;font-size:28px}
+.lb .p,.lb .n{top:50%;transform:translateY(-50%);font-size:32px;padding:.4em}
+.lb .p{left:.3rem}.lb .n{right:.3rem}
+.lb .back{left:50%;bottom:1.2rem;transform:translateX(-50%);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.lb .meta{position:absolute;left:2rem;bottom:1.2rem;color:#f4efe6;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+@media(max-width:860px){.board{grid-template-columns:1fr 1fr;width:calc(100% - 32px);gap:2rem 1.2rem}}
+@media(max-width:560px){.board{grid-template-columns:1fr}.bar,.foot{width:calc(100% - 32px)}.bar{padding:18px 0 0}}
+@media(prefers-reduced-motion:reduce){.lb,.sheet,.pin{transition:none;animation:none!important}}
 </style>
 </head>
 <body>
-  <header class="bar">
-    <h1 class="site-title"><a href="https://deeeen.xyz/">～への入り口 ✴︎ Deen David</a></h1>
-    <div class="bar-right">
-      <a href="https://deeeen.xyz/">Notes</a>
-      <a href="https://www.are.na/deen">Research</a>
-      <a href="https://deeeen.xyz/about">About</a>
-      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
-      </button>
-    </div>
-  </header>
-  <section class="intro">
-    <h2>Drawings</h2>
-    <p>With digital or on paper. Click a sheet to take the clip off.</p>
-    <p class="count" id="count">Looking…</p>
-  </section>
-  <div class="board" id="wall"></div>
-  <p class="status" id="status"></p>
-  <footer>
-    <span>From the Are.na channel Drawings</span>
-    <a href="https://www.are.na/deen/drawings-37mwydwa-8a" target="_blank" rel="noopener">are.na/deen/drawings</a>
-  </footer>
-  <div class="lb" id="lb" hidden>
-    <button class="lb-x" id="lbx" aria-label="Close">×</button>
-    <button class="lb-prev" id="lbp" aria-label="Previous">‹</button>
-    <div class="lb-frame">
-      <div class="lb-shot">
-        <span class="lb-pin" id="lbpn" aria-hidden="true"></span>
-        <img id="lbi" alt="">
-      </div>
-      <div class="lb-meta" id="lbm"></div>
-    </div>
-    <button class="lb-next" id="lbn" aria-label="Next">›</button>
-    <button class="lb-back" id="lbb" type="button">Clip it back</button>
-  </div>
+<header class="bar">
+  <a href="https://deeeen.xyz/">～への入り口 ✴︎ Deen David</a>
+  <nav class="nav">
+    <a href="https://deeeen.xyz/">Notes</a>
+    <a href="https://www.are.na/deen">Research</a>
+    <a href="https://deeeen.xyz/about">About</a>
+  </nav>
+</header>
+<section class="intro"><h1>Drawings</h1>
+<p>With digital or on paper. Click a sheet to take the clip off.</p></section>
+<div class="board">
+<figure class="piece">
+  <a class="sheet" href="#w45795542" aria-label="unfinished stare. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjEyMDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0=" alt="unfinished stare" width="834" height="1200" loading="lazy">
+  </a>
+  <figcaption>unfinished stare</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084454" aria-label="Might go on me.. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might go on me." width="1200" height="1200" loading="lazy">
+  </a>
+  <figcaption>Might go on me.</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084453" aria-label="Might not.. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might not." width="1200" height="1200" loading="lazy">
+  </a>
+  <figcaption>Might not.</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084460" aria-label="Together.. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Together." width="1200" height="800" loading="lazy">
+  </a>
+  <figcaption>Together.</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084443" aria-label="Hugging Face. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Hugging Face" width="951" height="1200" loading="lazy">
+  </a>
+  <figcaption>Hugging Face</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084432" aria-label="Phantom. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Phantom" width="834" height="1200" loading="lazy">
+  </a>
+  <figcaption>Phantom</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084414" aria-label="Can’t remember when.. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Can’t remember when." width="834" height="1200" loading="lazy">
+  </a>
+  <figcaption>Can’t remember when.</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084486" aria-label="Matter um. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Matter um" width="1200" height="1200" loading="lazy">
+  </a>
+  <figcaption>Matter um</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084487" aria-label="Loaded fries. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Loaded fries" width="1200" height="1200" loading="lazy">
+  </a>
+  <figcaption>Loaded fries</figcaption>
+</figure>
+<figure class="piece">
+  <a class="sheet" href="#w45084488" aria-label="Test run. Unclip drawing">
+    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Test run" width="834" height="1200" loading="lazy">
+  </a>
+  <figcaption>Test run</figcaption>
+</figure>
+</div>
+<footer class="foot">
+  <span>From the Are.na channel Drawings</span>
+  <a href="https://www.are.na/deen/drawings-37mwydwa-8a">are.na/deen/drawings</a>
+</footer>
+<aside class="lb" id="w45795542">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084488" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxODAwLCJoZWlnaHQiOjE4MDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0=" alt="unfinished stare">
+  <a class="n" href="#w45084454" aria-label="Next">›</a>
+  <span class="meta">unfinished stare · <a href="https://www.are.na/block/45795542">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084454">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45795542" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might go on me.">
+  <a class="n" href="#w45084453" aria-label="Next">›</a>
+  <span class="meta">Might go on me. · <a href="https://www.are.na/block/45084454">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084453">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084454" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might not.">
+  <a class="n" href="#w45084460" aria-label="Next">›</a>
+  <span class="meta">Might not. · <a href="https://www.are.na/block/45084453">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084460">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084453" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Together.">
+  <a class="n" href="#w45084443" aria-label="Next">›</a>
+  <span class="meta">Together. · <a href="https://www.are.na/block/45084460">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084443">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084460" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Hugging Face">
+  <a class="n" href="#w45084432" aria-label="Next">›</a>
+  <span class="meta">Hugging Face · <a href="https://www.are.na/block/45084443">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084432">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084443" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Phantom">
+  <a class="n" href="#w45084414" aria-label="Next">›</a>
+  <span class="meta">Phantom · <a href="https://www.are.na/block/45084432">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084414">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084432" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Can’t remember when.">
+  <a class="n" href="#w45084486" aria-label="Next">›</a>
+  <span class="meta">Can’t remember when. · <a href="https://www.are.na/block/45084414">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084486">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084414" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Matter um">
+  <a class="n" href="#w45084487" aria-label="Next">›</a>
+  <span class="meta">Matter um · <a href="https://www.are.na/block/45084486">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084487">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084486" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Loaded fries">
+  <a class="n" href="#w45084488" aria-label="Next">›</a>
+  <span class="meta">Loaded fries · <a href="https://www.are.na/block/45084487">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
+<aside class="lb" id="w45084488">
+  <span class="pin" aria-hidden="true"></span>
+  <a class="x" href="#" aria-label="Close">×</a>
+  <a class="p" href="#w45084487" aria-label="Previous">‹</a>
+  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Test run">
+  <a class="n" href="#w45795542" aria-label="Next">›</a>
+  <span class="meta">Test run · <a href="https://www.are.na/block/45084488">on are.na</a></span>
+  <a class="back" href="#">Clip it back</a>
+</aside>
 <script>
-"use strict";
-(function () {
-  var btn = document.getElementById("theme-toggle");
-  if (!btn) return;
-  btn.addEventListener("click", function () {
-    var current = document.documentElement.getAttribute("data-theme");
-    var next = current === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    try { localStorage.setItem("theme", next); } catch (e) {}
-  });
-})();
-
-const SLUG = "drawings-37mwydwa-8a";
-const PER = 24;
-const FILEISH = /^(R\d+|DSC|IMG[_-]?|P\d+|DSCN|LUC|_MG_)/i;
-const wall = document.getElementById("wall");
-const statusEl = document.getElementById("status");
-const countEl = document.getElementById("count");
-const lb = document.getElementById("lb");
-const lbi = document.getElementById("lbi");
-const lbm = document.getElementById("lbm");
-const lbpn = document.getElementById("lbpn");
-const items = [];
-const nodes = [];
-let page = 1, total = null, loading = false, done = false, openAt = -1, closeTimer = null, pinSeq = 0;
-
-function prettyTitle(t){
-  if (!t) return "";
-  if (FILEISH.test(t) || /\.(jpe?g|png|gif|webp|heic)$/i.test(t)) return "";
-  return t.trim();
-}
-function srcOf(block, size){
-  const img = block.image || {};
-  if (size === "large") return (img.large && img.large.src) || img.src || "";
-  return (img.display && img.display.src) || (img.medium && img.medium.src) || (img.small && img.small.src) || img.src || "";
-}
-function hash(n){
-  let x = (n * 1103515245 + 12345) >>> 0;
-  return x / 4294967296;
-}
-function pinMarkup(){
-  const id = "pg" + (++pinSeq);
-  return '<svg viewBox="0 0 36 68" xmlns="http://www.w3.org/2000/svg" focusable="false">' +
-    '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1">' +
-    '<stop offset="0" stop-color="#e8edf2"/><stop offset=".45" stop-color="#9aa3ad"/>' +
-    '<stop offset="1" stop-color="#5f6770"/></linearGradient></defs>' +
-    '<path d="M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2" fill="none" stroke="url(#' + id + ')" stroke-width="3.15" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '</svg>';
-}
-
-function makePiece(entry){
-  const piece = document.createElement("article");
-  piece.className = "piece";
-  piece.dataset.i = String(entry.i);
-  const r = hash(entry.id || entry.i + 17);
-  const r2 = hash((entry.id || 3) * 3 + 9);
-  const r3 = hash((entry.id || 5) * 7 + 2);
-  piece.style.setProperty("--tilt", ((r * 7.4) - 3.7).toFixed(2) + "deg");
-  piece.style.setProperty("--pin-tilt", ((r2 * 16) - 11).toFixed(2) + "deg");
-  piece.style.setProperty("--pin-x", (38 + r3 * 24).toFixed(1) + "%");
-  piece.style.setProperty("--drop", Math.round((r2 * 28) - 4) + "px");
-
-  const sheet = document.createElement("button");
-  sheet.className = "sheet";
-  sheet.type = "button";
-  sheet.setAttribute("aria-label", (entry.title ? entry.title + ". " : "") + "Unclip drawing");
-
-  const pin = document.createElement("span");
-  pin.className = "pin";
-  pin.setAttribute("aria-hidden", "true");
-  pin.innerHTML = pinMarkup();
-
-  const img = document.createElement("img");
-  img.loading = "lazy";
-  img.decoding = "async";
-  img.alt = entry.title || "";
-  img.src = entry.thumb;
-  img.addEventListener("load", function () { img.classList.add("on"); });
-
-  sheet.appendChild(pin);
-  sheet.appendChild(img);
-
-  const label = document.createElement("p");
-  label.className = "label";
-  label.textContent = entry.title || "";
-
-  sheet.addEventListener("click", function () { open(entry.i); });
-  piece.appendChild(sheet);
-  piece.appendChild(label);
-  return piece;
-}
-
-function addBlock(block){
-  if (block.type !== "Image" || !block.image) return;
-  const i = items.length;
-  const entry = {
-    i: i,
-    id: block.id,
-    thumb: srcOf(block, "medium"),
-    large: srcOf(block, "large"),
-    title: prettyTitle(block.title)
-  };
-  items.push(entry);
-  const node = makePiece(entry);
-  nodes[i] = node;
-  wall.appendChild(node);
-}
-
-async function load(){
-  if (loading || done) return;
-  loading = true;
-  statusEl.textContent = page === 1 ? "Gathering drawings…" : "More…";
-  try {
-    const res = await fetch("https://api.are.na/v3/channels/" + SLUG + "/contents?page=" + page + "&per=" + PER);
-    if (!res.ok) throw new Error("Are.na " + res.status);
-    const json = await res.json();
-    const meta = json.meta || {};
-    (json.data || []).forEach(addBlock);
-    total = meta.total_count || total;
-    countEl.textContent = total ? items.length + " of " + total : items.length + " drawings";
-    if (!meta.has_more_pages || !(json.data || []).length) {
-      done = true;
-      statusEl.textContent = "";
-    } else {
-      page += 1;
-      statusEl.textContent = "";
-    }
-  } catch (err) {
-    statusEl.textContent = "Could not reach Are.na. Try again in a moment.";
-    console.error(err);
-  } finally {
-    loading = false;
-  }
-}
-
-window.addEventListener("scroll", function () {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 900) load();
-}, { passive: true });
-
-function setOpenPiece(i){
-  nodes.forEach(function (n, idx) {
-    if (!n) return;
-    n.classList.toggle("unclipped", idx === i);
-  });
-}
-
-function showShot(i){
-  if (i < 0 || i >= items.length) return;
-  openAt = i;
-  const it = items[i];
-  setOpenPiece(i);
-  lbi.src = it.large || it.thumb;
-  lbi.alt = it.title || "";
-  lbm.innerHTML = (it.title ? it.title + " · " : "") +
-    '<a href="https://www.are.na/block/' + it.id + '" target="_blank" rel="noopener">on are.na</a>';
-  lb.classList.remove("clipping-back");
-  lb.classList.remove("clipping");
-  void lb.offsetWidth;
-  lb.classList.add("clipping");
-}
-
-function open(i){
-  if (i < 0 || i >= items.length) return;
-  if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-  lb.hidden = false;
-  lb.classList.add("on");
-  document.body.style.overflow = "hidden";
-  lbpn.innerHTML = pinMarkup();
-  showShot(i);
-}
-
-function close(){
-  lb.classList.remove("clipping");
-  lb.classList.add("clipping-back");
-  setOpenPiece(-1);
-  closeTimer = setTimeout(function () {
-    lb.classList.remove("on", "clipping-back", "clipping");
-    lb.hidden = true;
-    lbi.src = "";
-    document.body.style.overflow = "";
-    openAt = -1;
-    closeTimer = null;
-  }, 420);
-}
-
-document.getElementById("lbx").addEventListener("click", close);
-document.getElementById("lbb").addEventListener("click", close);
-document.getElementById("lbp").addEventListener("click", function () { if (openAt > 0) showShot(openAt - 1); });
-document.getElementById("lbn").addEventListener("click", function () {
-  if (openAt === items.length - 1) load();
-  if (openAt < items.length - 1) showShot(openAt + 1);
+document.addEventListener("keydown",function(e){
+  if(location.hash.charAt(1)!=="w")return;
+  var box=document.querySelector(location.hash);
+  if(!box)return;
+  if(e.key==="Escape")location.hash="";
+  if(e.key==="ArrowRight"){var n=box.querySelector(".n");if(n)location.hash=n.getAttribute("href")}
+  if(e.key==="ArrowLeft"){var p=box.querySelector(".p");if(p)location.hash=p.getAttribute("href")}
 });
-lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
-document.addEventListener("keydown", function (e) {
-  if (!lb.classList.contains("on")) return;
-  if (e.key === "Escape") close();
-  if (e.key === "ArrowLeft" && openAt > 0) showShot(openAt - 1);
-  if (e.key === "ArrowRight") {
-    if (openAt === items.length - 1) load();
-    if (openAt < items.length - 1) showShot(openAt + 1);
-  }
-});
-
-load();
 </script>
 </body>
 </html>

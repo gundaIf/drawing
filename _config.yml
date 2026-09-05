@@ -1,0 +1,6 @@
+title: Drawings
+description: With digital or on paper.
+url: https://drawings.deeeen.xyz
+markdown: kramdown
+exclude:
+  - README.md
