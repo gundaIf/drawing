@@ -23,8 +23,6 @@
     --text-rgb:26,23,20;
     --bg:#f3eee6;
     --sheet:#fbf8f2;
-    --pin:#9aa3ad;
-    --pin-dark:#6d7580;
     --shadow: 0 10px 28px rgba(40,28,16,.12), 0 2px 6px rgba(40,28,16,.08);
   }
   [data-theme=dark]{
@@ -32,8 +30,6 @@
     --text-rgb:238,232,223;
     --bg:#141210;
     --sheet:#1c1a17;
-    --pin:#c5cdd6;
-    --pin-dark:#8b939c;
     --shadow: 0 12px 32px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.3);
     color-scheme:dark;
   }
@@ -282,7 +278,7 @@ const lbm = document.getElementById("lbm");
 const lbpn = document.getElementById("lbpn");
 const items = [];
 const nodes = [];
-let page = 1, total = null, loading = false, done = false, openAt = -1, closeTimer = null;
+let page = 1, total = null, loading = false, done = false, openAt = -1, closeTimer = null, pinSeq = 0;
 
 function prettyTitle(t){
   if (!t) return "";
@@ -299,11 +295,12 @@ function hash(n){
   return x / 4294967296;
 }
 function pinMarkup(){
+  const id = "pg" + (++pinSeq);
   return '<svg viewBox="0 0 36 68" xmlns="http://www.w3.org/2000/svg" focusable="false">' +
-    '<defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">' +
+    '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1">' +
     '<stop offset="0" stop-color="#e8edf2"/><stop offset=".45" stop-color="#9aa3ad"/>' +
     '<stop offset="1" stop-color="#5f6770"/></linearGradient></defs>' +
-    '<path d="M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2" fill="none" stroke="url(#pg)" stroke-width="3.15" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path d="M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2" fill="none" stroke="url(#' + id + ')" stroke-width="3.15" stroke-linecap="round" stroke-linejoin="round"/>' +
     '</svg>';
 }
 
