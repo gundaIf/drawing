@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>～への入り口 ✴︎ Deen David</title>
+<meta name="description" content="With digital or on paper.">
+<link rel="icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg" type="image/x-icon">
+<link rel="apple-touch-icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg">
+<script>
+(function () {
+  var root = document.documentElement;
+  try {
+    var t = localStorage.getItem('theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.setAttribute('data-theme', t || (prefersDark ? 'dark' : 'light'));
+  } catch (e) { root.setAttribute('data-theme', 'light'); }
+})();
+</script>
+<style>
+  :root{ --text:#111111; --text-rgb:17,17,17; --bg:#ffffff; --accent:#111111; --gap:18px; }
+  [data-theme=dark]{ --text:#f2f2f2; --text-rgb:242,242,242; --bg:#000000; --accent:#f2f2f2; color-scheme:dark; }
+  *{ box-sizing:border-box; }
+  html{ font-family:Helvetica,Helvetica Neue,Arial,sans-serif; font-size:15px; line-height:1.6; text-rendering:optimizeLegibility; }
+  body{ margin:0; color:var(--text); background:var(--bg); min-height:100vh; transition:background-color .25s ease,color .25s ease; }
+  a{ color:inherit; text-decoration:none; }
+  a:hover{ opacity:.55; }
+  .bar{ display:flex; align-items:center; justify-content:space-between; padding:22px 28px 0; }
+  .site-title{ margin:0; font-size:15px; font-weight:400; }
+  .bar-right{ display:flex; align-items:center; gap:18px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+  .bar-right a{ opacity:.7; }
+  .theme-toggle{ background:none; border:0; padding:0; cursor:pointer; display:inline-flex; align-items:center; }
+  .theme-toggle-track{ position:relative; width:1.75em; height:.875em; border:1px solid rgba(var(--text-rgb),.35); border-radius:999px; }
+  .theme-toggle-thumb{ position:absolute; top:50%; left:.125em; width:.5em; height:.5em; border-radius:50%; background:rgba(var(--text-rgb),.55); transform:translateY(-50%); transition:left .2s ease; }
+  [data-theme=dark] .theme-toggle-thumb{ left:calc(100% - .625em); background:rgba(var(--text-rgb),.9); }
+  .intro{ text-align:center; max-width:28em; margin:4.5em auto 3.2em; padding:0 24px; }
+  .intro h2{ margin:0 0 .7em; font-size:18px; font-weight:400; }
+  .intro p{ margin:0; font-size:14px; line-height:1.55; color:rgba(var(--text-rgb),.72); }
+  .count{ margin:.85em 0 0; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(var(--text-rgb),.45); }
+  .wall{ width:min(1120px, calc(100% - 56px)); margin:0 auto 4em; display:flex; flex-direction:column; gap:22px; }
+  .row{ display:grid; gap:var(--gap); }
+  .row.land{ grid-template-columns:1fr; }
+  .row.port{ grid-template-columns:1fr 1fr; }
+  .row.port.one{ grid-template-columns:1fr 1fr; }
+  .row.port.one .cell{ grid-column:1; }
+  .cell{ display:block; width:100%; padding:0; border:0; margin:0; background:rgba(var(--text-rgb),.04); color:inherit; cursor:zoom-in; font:inherit; overflow:hidden; }
+  .cell img{ display:block; width:100%; height:auto; opacity:0; transform:scale(1); transform-origin:center center; transition:opacity .5s ease; will-change:transform; }
+  .cell img.on{ opacity:1; }
+  .cell.focus img{ animation:lens 2s ease-in-out; }
+  @keyframes lens{
+    0%   { transform:scale(1); filter:blur(0); }
+    18%  { transform:scale(1.018); filter:blur(.4px); }
+    42%  { transform:scale(1.055); filter:blur(0); }
+    100% { transform:scale(1); filter:blur(0); }
+  }
+  .status{ text-align:center; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(var(--text-rgb),.45); min-height:1.4em; margin:0 0 2em; }
+  footer{ width:min(1120px, calc(100% - 56px)); margin:0 auto; padding:0 0 36px; display:flex; justify-content:space-between; gap:1em; flex-wrap:wrap; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(var(--text-rgb),.4); }
+  .lb{ position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:20; display:none; align-items:center; justify-content:center; padding:2em; }
+  .lb.on{ display:flex; }
+  .lb img{ max-width:min(94vw,1500px); max-height:90vh; object-fit:contain; }
+  .lb-meta{ position:absolute; left:2em; bottom:1.4em; color:#f2f2f2; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+  .lb-x,.lb-prev,.lb-next{ position:absolute; background:none; border:0; color:#f2f2f2; cursor:pointer; font-family:Helvetica,Helvetica Neue,Arial,sans-serif; font-size:28px; line-height:1; padding:8px; }
+  .lb-x{ top:1em; right:1.2em; }
+  .lb-prev{ left:.4em; top:50%; transform:translateY(-50%); }
+  .lb-next{ right:.4em; top:50%; transform:translateY(-50%); }
+  @media (prefers-reduced-motion:reduce){ .cell.focus img{ animation:none; } }
+  @media (max-width:720px){
+    .bar{ padding:18px 16px 0; }
+    .wall{ width:calc(100% - 28px); gap:14px; }
+    .row.port, .row.port.one{ grid-template-columns:1fr; }
+    .intro{ margin:3em auto 2em; }
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <h1 class="site-title"><a href="https://deeeen.xyz/">～への入り口 ✴︎ Deen David</a></h1>
+    <div class="bar-right">
+      <a href="https://deeeen.xyz/">Notes</a>
+      <a href="https://www.are.na/deen">Research</a>
+      <a href="https://deeeen.xyz/about">About</a>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+      </button>
+    </div>
+  </header>
+  <section class="intro">
+    <h2>Drawings</h2>
+    <p>With digital or on paper.</p>
+    <p class="count" id="count">Looking…</p>
+  </section>
+  <div class="wall" id="wall"></div>
+  <p class="status" id="status"></p>
+  <footer>
+    <span>From the Are.na channel Drawings</span>
+    <a href="https://www.are.na/deen/drawings-37mwydwa-8a" target="_blank" rel="noopener">are.na/deen/drawings</a>
+  </footer>
+  <div class="lb" id="lb" hidden>
+    <button class="lb-x" id="lbx" aria-label="Close">×</button>
+    <button class="lb-prev" id="lbp" aria-label="Previous">‹</button>
+    <img id="lbi" alt="">
+    <button class="lb-next" id="lbn" aria-label="Next">›</button>
+    <div class="lb-meta" id="lbm"></div>
+  </div>
+<script>
+"use strict";
+(function () {
+  var btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  btn.addEventListener("click", function () {
+    var current = document.documentElement.getAttribute("data-theme");
+    var next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+})();
+const SLUG = "drawings-37mwydwa-8a";
+const PER = 24;
+const FILEISH = /^(R\d+|DSC|IMG[_-]?|P\d+|DSCN|LUC|_MG_)/i;
+const wall = document.getElementById("wall");
+const statusEl = document.getElementById("status");
+const countEl = document.getElementById("count");
+const lb = document.getElementById("lb");
+const lbi = document.getElementById("lbi");
+const lbm = document.getElementById("lbm");
+const items = [];
+let page = 1, total = null, loading = false, done = false, openAt = -1, pendingPort = null;
+function prettyTitle(t){
+  if (!t) return "";
+  if (FILEISH.test(t) || /\.(jpe?g|png|gif|webp|heic)$/i.test(t)) return "";
+  return t.trim();
+}
+function srcOf(block, size){
+  const img = block.image || {};
+  if (size === "large") return (img.large && img.large.src) || img.src || "";
+  return (img.medium && img.medium.src) || (img.small && img.small.src) || img.src || "";
+}
+function isPortrait(w, h){ return (w / h) < 0.95; }
+function makeCell(entry){
+  const a = document.createElement("button");
+  a.className = "cell"; a.type = "button";
+  a.setAttribute("aria-label", entry.title || "Drawing");
+  const img = document.createElement("img");
+  img.loading = "lazy"; img.decoding = "async"; img.alt = entry.title || ""; img.src = entry.thumb;
+  img.addEventListener("load", () => img.classList.add("on"));
+  a.appendChild(img);
+  a.addEventListener("click", () => open(entry.i));
+  a.addEventListener("mouseenter", () => { a.classList.remove("focus"); void a.offsetWidth; a.classList.add("focus"); });
+  a.addEventListener("animationend", () => a.classList.remove("focus"));
+  return a;
+}
+function addRow(kind, cells){
+  const row = document.createElement("div");
+  row.className = "row " + kind + (kind === "port" && cells.length === 1 ? " one" : "");
+  cells.forEach((c) => row.appendChild(c));
+  wall.appendChild(row);
+}
+function place(entry){
+  const cell = makeCell(entry);
+  if (entry.portrait) {
+    if (pendingPort) { addRow("port", [pendingPort, cell]); pendingPort = null; }
+    else pendingPort = cell;
+    return;
+  }
+  if (pendingPort) { addRow("port", [pendingPort]); pendingPort = null; }
+  addRow("land", [cell]);
+}
+function addBlock(block){
+  if (block.type !== "Image" || !block.image) return;
+  const i = items.length;
+  const w = block.image.width || 3, h = block.image.height || 4;
+  const portrait = isPortrait(w, h);
+  const entry = { i, id: block.id, thumb: portrait ? srcOf(block, "medium") : srcOf(block, "large"), large: srcOf(block, "large"), title: prettyTitle(block.title), w, h, portrait };
+  items.push(entry); place(entry);
+}
+async function load(){
+  if (loading || done) return;
+  loading = true;
+  statusEl.textContent = page === 1 ? "Gathering drawings…" : "More…";
+  try {
+    const res = await fetch("https://api.are.na/v3/channels/" + SLUG + "/contents?page=" + page + "&per=" + PER);
+    if (!res.ok) throw new Error("Are.na " + res.status);
+    const json = await res.json();
+    const meta = json.meta || {};
+    (json.data || []).forEach(addBlock);
+    total = meta.total_count || total;
+    countEl.textContent = total ? items.length + " of " + total : items.length + " drawings";
+    if (!meta.has_more_pages || !(json.data || []).length) {
+      if (pendingPort) { addRow("port", [pendingPort]); pendingPort = null; }
+      done = true; statusEl.textContent = "";
+    } else { page += 1; statusEl.textContent = ""; }
+  } catch (err) {
+    statusEl.textContent = "Could not reach Are.na. Try again in a moment.";
+    console.error(err);
+  } finally { loading = false; }
+}
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 900) load();
+}, { passive: true });
+function open(i){
+  if (i < 0 || i >= items.length) return;
+  openAt = i; const it = items[i];
+  lbi.src = it.large || it.thumb; lbi.alt = it.title || "";
+  lbm.innerHTML = (it.title ? it.title + " · " : "") + "<a href=\"https://www.are.na/block/" + it.id + "\" target=\"_blank\" rel=\"noopener\">on are.na</a>";
+  lb.hidden = false; lb.classList.add("on"); document.body.style.overflow = "hidden";
+}
+function close(){ lb.classList.remove("on"); lb.hidden = true; lbi.src = ""; document.body.style.overflow = ""; openAt = -1; }
+document.getElementById("lbx").addEventListener("click", close);
+document.getElementById("lbp").addEventListener("click", () => open(openAt - 1));
+document.getElementById("lbn").addEventListener("click", () => { if (openAt === items.length - 1) load(); open(openAt + 1); });
+lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+document.addEventListener("keydown", (e) => {
+  if (!lb.classList.contains("on")) return;
+  if (e.key === "Escape") close();
+  if (e.key === "ArrowLeft") open(openAt - 1);
+  if (e.key === "ArrowRight") { if (openAt === items.length - 1) load(); open(openAt + 1); }
+});
+load();
+</script>
+</body>
+</html>
