@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drawings - ～への入り口 ✴︎ Deen David</title>
 <meta name="description" content="With digital or on paper.">
 <link rel="icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg" type="image/x-icon">
@@ -67,22 +67,31 @@
 .piece:nth-child(3n+2){--r:-4deg}
 .sheet:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(40,28,16,.14);color:inherit}
 .piece figcaption{margin:.9em 0 0;text-align:center;font-size:calc(15px * .6667);letter-spacing:.1em;text-transform:uppercase;color:rgba(var(--text-rgb),.45)}
-.lb{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:4em 3em 5em;background:rgba(20,16,12,.9);opacity:0;pointer-events:none;transition:opacity .25s}
-.lb:target{opacity:1;pointer-events:auto}
-.lb img{max-width:min(92vw,1200px);max-height:78vh;object-fit:contain;background:var(--sheet);box-shadow:0 20px 50px rgba(0,0,0,.4)}
-.lb .pin{position:absolute;top:calc(50% - 39vh);left:50%;width:30px;height:54px;transform:translateX(-50%);background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 68'><path d='M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2' fill='none' stroke='%23c5cdd6' stroke-width='3.2' stroke-linecap='round'/></svg>") center/contain no-repeat;opacity:0}
+.lb{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:max(3.2rem,env(safe-area-inset-top)) 3rem 5.5rem;background:#11100e;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden;overscroll-behavior:none;transition:opacity .25s,visibility .25s}
+.lb:target{visibility:visible;opacity:1;pointer-events:auto}
+body:has(.lb:target){overflow:hidden}
+.lb img{max-width:min(92vw,1200px);max-height:calc(100dvh - 8rem);width:auto;height:auto;object-fit:contain;background:var(--sheet);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.lb .pin{position:absolute;top:max(2.4rem,env(safe-area-inset-top));left:50%;width:30px;height:54px;transform:translateX(-50%);background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 68'><path d='M20 7.5c0-3.4-2.8-5.4-5.6-5.4C11.2 2.1 8.5 4.6 8.5 9.2v38.2c0 7.6 6.2 12.2 12.4 12.2 6.4 0 12.1-4.7 12.1-12.6V18.4c0-3.6-2.6-5.8-5.5-5.8-2.8 0-5.3 2.3-5.3 6.1v27.2' fill='none' stroke='%23c5cdd6' stroke-width='3.2' stroke-linecap='round'/></svg>") center/contain no-repeat;opacity:0;pointer-events:none}
 .lb:target .pin{animation:off .5s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes off{0%{opacity:1;transform:translateX(-50%) rotate(-6deg)}100%{opacity:0;transform:translateX(-50%) rotate(-26deg) translateY(-36px)}}
-.lb .x,.lb .p,.lb .n,.lb .back{position:absolute;color:#f4efe6;background:0;border:0;font:inherit;text-decoration:none}
-.lb .x{top:1rem;right:1.2rem;font-size:28px}
-.lb .p,.lb .n{top:50%;transform:translateY(-50%);font-size:32px;padding:.4em}
-.lb .p{left:.3rem}.lb .n{right:.3rem}
-.lb .back{left:50%;bottom:1.2rem;transform:translateX(-50%);font-size:calc(15px * .6667);letter-spacing:.1em;text-transform:uppercase}
-.lb .meta{position:absolute;left:2rem;bottom:1.2rem;color:#f4efe6;font-size:calc(15px * .6667);letter-spacing:.1em;text-transform:uppercase}
+.lb .x,.lb .p,.lb .n,.lb .back{color:#f4efe6;background:0;border:0;font:inherit;text-decoration:none}
+.lb .x,.lb .p,.lb .n{position:absolute}
+.lb .x{top:max(.7rem,env(safe-area-inset-top));right:1rem;font-size:28px;line-height:1;z-index:2}
+.lb .p,.lb .n{top:50%;transform:translateY(-50%);font-size:32px;padding:.4em;z-index:2}
+.lb .p{left:.15rem}.lb .n{right:.15rem}
+.lb-foot{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:.35em;padding:.85rem 1.25rem max(.9rem,env(safe-area-inset-bottom));text-align:center;color:#f4efe6;font-size:calc(15px * .6667);letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(to top,#11100e 55%,transparent)}
+.lb .meta{color:#f4efe6}
 .lb .meta a{color:inherit;text-decoration:none}
-.lb .meta a:hover{color:#fff}
+.lb .meta a:hover,.lb .back:hover{color:#fff}
+.lb .back{display:inline-block}
 @media(max-width:860px){.board{grid-template-columns:1fr 1fr;gap:2rem 1.2rem}}
-@media(max-width:560px){.board{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .board{grid-template-columns:1fr}
+  .lb{padding:3.4rem .4rem 5.8rem}
+  .lb img{max-width:100%;max-height:calc(100dvh - 8.25rem)}
+  .lb .p,.lb .n{top:auto;bottom:max(.15rem,env(safe-area-inset-bottom));transform:none;font-size:28px;padding:.55em .45em}
+  .lb-foot{padding:.75rem 3.4rem max(.85rem,env(safe-area-inset-bottom));gap:.4em}
+}
 @media(prefers-reduced-motion:reduce){.lb,.sheet,.pin{transition:none;animation:none!important}}
 </style>
 </head>
@@ -169,8 +178,10 @@
   <a class="p" href="#w{{ site.data.drawings[pi].id }}" aria-label="Previous">‹</a>
   <img src="{{ w.full }}" alt="{{ w.title }}">
   <a class="n" href="#w{{ site.data.drawings[ni].id }}" aria-label="Next">›</a>
-  <span class="meta">{{ w.title }} · <a href="https://www.are.na/block/{{ w.id }}">on are.na</a></span>
-  <a class="back" href="#">Clip it back</a>
+  <div class="lb-foot">
+    <span class="meta">{{ w.title }} · <a href="https://www.are.na/block/{{ w.id }}">on are.na</a></span>
+    <a class="back" href="#">Clip it back</a>
+  </div>
 </aside>
 {% endfor %}
 <script>
