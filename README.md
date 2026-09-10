@@ -1,17 +1,10 @@
 # Drawing
 
-A light clip-board of the Are.na channel [Drawings](https://www.are.na/deen/drawings-37mwydwa-8a).
+Live pinboard of the Are.na channel [Drawings](https://www.are.na/deen/drawings-37mwydwa-8a).
 
 - Site: https://drawings.deeeen.xyz
 - Fallback: https://gundaif.github.io/drawing/
 
-Written as markdown. Served as one small HTML file.
+`index.html` pulls the channel in the browser. New images on Are.na show up on the wall without a rebuild.
 
-- `index.md` — the page
-- `_data/drawings.yml` — the sheets
-- `_layouts/default.html` — the frame
-- `index.html` — the built board (what GitHub Pages serves)
-
-No runtime Are.na fetch. No libraries. Click a sheet to take the clip off. Clip it back to return.
-
-To pin a new drawing, add a block to `_data/drawings.yml` (and rebuild `index.html`).
+Tap a sheet to peel the tape. Put it back to return.

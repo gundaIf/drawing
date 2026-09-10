@@ -1,7 +1,1 @@
----
-layout: default
----
-
-# Drawings
-
-With digital or on paper. Tap a sheet to peel it off the wall.
+The board is live. `index.html` fetches the Are.na Drawings channel and hangs every image.

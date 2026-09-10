@@ -1,13 +1,14 @@
-<!-- sourced from index.md and _data/drawings.yml -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drawings - ～への入り口 ✴︎ Deen David</title>
-<meta name="description" content="With digital or on paper.">
+<meta name="description" content="With digital or on paper. Pulled live from Are.na.">
 <link rel="icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg" type="image/x-icon">
 <link rel="preconnect" href="https://cdn.blot.im">
+<link rel="preconnect" href="https://api.are.na">
+<link rel="preconnect" href="https://images.are.na">
 <link rel="preconnect" href="https://api.open-meteo.com">
 <script>
 (function () {
@@ -60,9 +61,14 @@
 :root[data-season=clear][data-theme=dark]{--sheet:#1c1d22;--wall:#1c1b18;--tape:rgba(186,160,132,.4);--ledge:#6b5336;--frame:#141310}
 .container{padding-top:0;padding-bottom:1.6em}
 .studio{width:min(1080px,100%);margin:0 auto 4em}
-.wall{position:relative;aspect-ratio:4/3.12;background:var(--wall);background-image:linear-gradient(180deg,rgba(255,255,255,.14),transparent 28%);box-shadow:0 0 0 12px var(--frame),0 0 0 13px rgba(80,60,40,.18),0 22px 48px rgba(40,28,16,.12);overflow:hidden}
-.ledge{position:absolute;left:0;right:0;bottom:7.4%;height:3.1%;background:linear-gradient(180deg,#c4a06a,var(--ledge) 40%,#7a5c38);box-shadow:0 2px 0 rgba(40,28,16,.2);z-index:1;pointer-events:none}
-.piece{position:absolute;margin:0;padding:0;z-index:2}
+.wall{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.7rem 1.35rem;align-items:start;padding:2.1rem 1.8rem 4.4rem;background:var(--wall);background-image:linear-gradient(180deg,rgba(255,255,255,.14),transparent 28%);box-shadow:0 0 0 12px var(--frame),0 0 0 13px rgba(80,60,40,.18),0 22px 48px rgba(40,28,16,.12);min-height:22rem}
+.wall[data-state=loading]{min-height:28rem}
+.wall[data-state=loading]:before,.wall[data-state=error]:before{content:attr(data-msg);position:absolute;inset:0 0 3.2rem;display:flex;align-items:center;justify-content:center;font-size:calc(15px * .8);letter-spacing:.12em;text-transform:uppercase;color:rgba(var(--text-rgb),.4);pointer-events:none}
+.ledge{position:absolute;left:0;right:0;bottom:1.35rem;height:14px;background:linear-gradient(180deg,#c4a06a,var(--ledge) 40%,#7a5c38);box-shadow:0 2px 0 rgba(40,28,16,.2);z-index:1;pointer-events:none}
+.piece{margin:0;padding:0;min-width:0;z-index:2;transform:rotate(var(--r,-.8deg))}
+.piece:nth-child(3n){--r:1.05deg}
+.piece:nth-child(3n+2){--r:-1.15deg}
+.piece:nth-child(5n){--r:.55deg}
 .piece figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .sheet{position:relative;display:block;background:var(--sheet);padding:6px 6px 8px;color:inherit;text-decoration:none;box-shadow:0 1px 2px rgba(40,28,16,.08),0 6px 16px rgba(40,28,16,.1);transition:transform .2s ease,box-shadow .2s ease}
 .sheet img{display:block;width:100%;height:auto;vertical-align:middle;outline:1px solid rgba(40,28,16,.08);outline-offset:-1px}
@@ -71,18 +77,8 @@
 .tape.b{top:-.28em;right:13%;transform:rotate(8deg)}
 .tape.c{bottom:-.28em;left:15%;transform:rotate(7deg)}
 .tape.d{bottom:-.3em;right:12%;transform:rotate(-9deg)}
-.s1{left:5.8%;top:5%;width:14.8%;transform:rotate(-1.3deg)}
-.s2{left:47.2%;top:19%;width:10.2%;transform:rotate(.6deg)}
-.s3{left:7.5%;top:71%;width:11.8%;transform:rotate(-.9deg)}
-.s4{left:66.5%;top:61%;width:25.8%;transform:rotate(.35deg);z-index:3}
-.s5{left:5.2%;top:38.5%;width:16.4%;transform:rotate(.85deg)}
-.s6{left:63.5%;top:34.5%;width:11.4%;transform:rotate(-1.05deg)}
-.s7{left:22.2%;top:4.2%;width:13.8%;transform:rotate(1.55deg)}
-.s8{left:60.5%;top:7.2%;width:12.2%;transform:rotate(-.4deg)}
-.s9{left:78.5%;top:21.5%;width:13.4%;transform:rotate(1.2deg)}
-.s10{left:87.2%;top:2.6%;width:8.4%;transform:rotate(-2.1deg)}
 .piece:hover{z-index:6}
-.sheet:hover{box-shadow:0 2px 3px rgba(40,28,16,.1),0 10px 22px rgba(40,28,16,.14)}
+.sheet:hover{box-shadow:0 2px 3px rgba(40,28,16,.1),0 10px 22px rgba(40,28,16,.14);color:inherit}
 .lb{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:max(3.2rem,env(safe-area-inset-top)) 3rem 5.5rem;background:#11100e;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden;overscroll-behavior:none;transition:opacity .25s,visibility .25s}
 .lb:target{visibility:visible;opacity:1;pointer-events:auto}
 body:has(.lb:target){overflow:hidden}
@@ -105,15 +101,13 @@ body:has(.lb:target){overflow:hidden}
 .lb .meta a:hover,.lb .back:hover{color:#fff}
 .lb .back{display:inline-block}
 @media(max-width:800px){
-  .wall{aspect-ratio:auto;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 1.1rem;padding:1.35rem 1.1rem 2.8rem;overflow:visible}
+  .wall{grid-template-columns:1fr 1fr;gap:1.4rem 1rem;padding:1.35rem 1.1rem 2.6rem}
   .ledge{display:none}
-  .piece{position:relative;left:auto;top:auto;width:auto;transform:rotate(var(--r,-1deg))}
-  .s1,.s3,.s5,.s7,.s9{--r:-1.2deg}
-  .s2,.s4,.s6,.s8,.s10{--r:1.1deg}
   .lb{padding:3.2rem .55rem 5.4rem}
   .lb img{max-width:100%;max-height:calc(100dvh - 7.5rem)}
   .lb-foot{padding:.8rem 1rem max(1rem,env(safe-area-inset-bottom));gap:.45em}
 }
+@media(max-width:520px){.wall{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.lb,.sheet,.pin{transition:none;animation:none!important}}
 </style>
 </head>
@@ -166,97 +160,9 @@ body:has(.lb:target){overflow:hidden}
 <p>With digital or on paper. Tap a sheet to peel it off the wall.</p>
 </div>
 <div class="studio">
-<div class="wall">
-<figure class="piece s1">
-  <a class="sheet" href="#w45795542" aria-label="unfinished stare">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <i class="tape c" aria-hidden="true"></i>
-    <i class="tape d" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjEyMDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0=" alt="unfinished stare" width="834" height="1200" loading="lazy">
-  </a>
-  <figcaption>unfinished stare</figcaption>
-</figure>
-<figure class="piece s2">
-  <a class="sheet" href="#w45084454" aria-label="Might go on me.">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might go on me." width="1200" height="1200" loading="lazy">
-  </a>
-  <figcaption>Might go on me.</figcaption>
-</figure>
-<figure class="piece s3">
-  <a class="sheet" href="#w45084453" aria-label="Might not.">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might not." width="1200" height="1200" loading="lazy">
-  </a>
-  <figcaption>Might not.</figcaption>
-</figure>
-<figure class="piece s4">
-  <a class="sheet" href="#w45084460" aria-label="Together.">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <i class="tape c" aria-hidden="true"></i>
-    <i class="tape d" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Together." width="1200" height="800" loading="lazy">
-  </a>
-  <figcaption>Together.</figcaption>
-</figure>
-<figure class="piece s5">
-  <a class="sheet" href="#w45084443" aria-label="Hugging Face">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <i class="tape c" aria-hidden="true"></i>
-    <i class="tape d" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Hugging Face" width="951" height="1200" loading="lazy">
-  </a>
-  <figcaption>Hugging Face</figcaption>
-</figure>
-<figure class="piece s6">
-  <a class="sheet" href="#w45084432" aria-label="Phantom">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Phantom" width="834" height="1200" loading="lazy">
-  </a>
-  <figcaption>Phantom</figcaption>
-</figure>
-<figure class="piece s7">
-  <a class="sheet" href="#w45084414" aria-label="Can’t remember when.">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Can’t remember when." width="834" height="1200" loading="lazy">
-  </a>
-  <figcaption>Can’t remember when.</figcaption>
-</figure>
-<figure class="piece s8">
-  <a class="sheet" href="#w45084486" aria-label="Matter um">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Matter um" width="1200" height="1200" loading="lazy">
-  </a>
-  <figcaption>Matter um</figcaption>
-</figure>
-<figure class="piece s9">
-  <a class="sheet" href="#w45084487" aria-label="Loaded fries">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <i class="tape c" aria-hidden="true"></i>
-    <i class="tape d" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Loaded fries" width="1200" height="1200" loading="lazy">
-  </a>
-  <figcaption>Loaded fries</figcaption>
-</figure>
-<figure class="piece s10">
-  <a class="sheet" href="#w45084488" aria-label="Test run">
-    <i class="tape a" aria-hidden="true"></i>
-    <i class="tape b" aria-hidden="true"></i>
-    <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Test run" width="834" height="1200" loading="lazy">
-  </a>
-  <figcaption>Test run</figcaption>
-</figure>
-<div class="ledge" aria-hidden="true"></div>
-</div>
+  <div class="wall" id="wall" data-state="loading" data-msg="pulling from are.na">
+    <div class="ledge" aria-hidden="true"></div>
+  </div>
 </div>
 <footer class="site-footer">
   <hr class="full">
@@ -274,116 +180,6 @@ body:has(.lb:target){overflow:hidden}
     <span id="blr-clock">—</span> in Bangalore · it's <span id="sky-word">—</span>
   </div>
 </footer>
-<aside class="lb" id="w45795542">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084488" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxODAwLCJoZWlnaHQiOjE4MDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0=" alt="unfinished stare">
-  <a class="n" href="#w45084454" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">unfinished stare · <a href="https://www.are.na/block/45795542">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084454">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45795542" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might go on me.">
-  <a class="n" href="#w45084453" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Might go on me. · <a href="https://www.are.na/block/45084454">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084453">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084454" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Might not.">
-  <a class="n" href="#w45084460" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Might not. · <a href="https://www.are.na/block/45084453">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084460">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084453" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Together.">
-  <a class="n" href="#w45084443" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Together. · <a href="https://www.are.na/block/45084460">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084443">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084460" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Hugging Face">
-  <a class="n" href="#w45084432" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Hugging Face · <a href="https://www.are.na/block/45084443">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084432">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084443" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Phantom">
-  <a class="n" href="#w45084414" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Phantom · <a href="https://www.are.na/block/45084432">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084414">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084432" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Can’t remember when.">
-  <a class="n" href="#w45084486" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Can’t remember when. · <a href="https://www.are.na/block/45084414">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084486">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084414" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Matter um">
-  <a class="n" href="#w45084487" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Matter um · <a href="https://www.are.na/block/45084486">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084487">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084486" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Loaded fries">
-  <a class="n" href="#w45084488" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Loaded fries · <a href="https://www.are.na/block/45084487">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
-<aside class="lb" id="w45084488">
-  <span class="pin" aria-hidden="true"></span>
-  <a class="x" href="#" aria-label="Close">×</a>
-  <a class="p" href="#w45084487" aria-label="Previous">‹</a>
-  <img src="https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ==" alt="Test run">
-  <a class="n" href="#w45795542" aria-label="Next">›</a>
-  <div class="lb-foot">
-    <span class="meta">Test run · <a href="https://www.are.na/block/45084488">on are.na</a></span>
-    <a class="back" href="#">Put it back</a>
-  </div>
-</aside>
 <script>
 (function () {
   var root = document.documentElement;
@@ -439,6 +235,168 @@ body:has(.lb:target){overflow:hidden}
     });
   }
 })();
+
+(function () {
+  var SLUG = "drawings-37mwydwa-8a";
+  var wall = document.getElementById("wall");
+  var ledge = wall && wall.querySelector(".ledge");
+  if (!wall) return;
+  var FALLBACK = [{"id":45084488,"title":"Test run","class":"Image","created_at":"2026-04-07T13:06:02.102Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084487,"title":"Loaded fries","class":"Image","created_at":"2026-04-07T13:06:02.093Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084486,"title":"Matter um","class":"Image","created_at":"2026-04-07T13:06:02.091Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084414,"title":"Can\u2019t remember when.","class":"Image","created_at":"2026-04-07T13:00:22.858Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084432,"title":"Phantom","class":"Image","created_at":"2026-04-07T13:01:36.916Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084443,"title":"Hugging Face","class":"Image","created_at":"2026-04-07T13:02:14.670Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084460,"title":"Together.","class":"Image","created_at":"2026-04-07T13:03:34.625Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084453,"title":"Might not.","class":"Image","created_at":"2026-04-07T13:03:08.165Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45084454,"title":"Might go on me.","class":"Image","created_at":"2026-04-07T13:03:08.177Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}},{"id":45795542,"title":"unfinished stare","class":"Image","created_at":"2026-05-03T10:34:50.677Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjEyMDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxODAwLCJoZWlnaHQiOjE4MDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0="}}},{"id":50227451,"title":"Chair","class":"Image","created_at":"2026-09-08T08:33:07.611Z","image":{"display":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI1MDIyNzQ1MS9vcmlnaW5hbF9jY2ZmNGM1MWZhNWNhMjVkZjcwYTlhMDY3ZmVkMWZmYy5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},"large":{"url":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI1MDIyNzQ1MS9vcmlnaW5hbF9jY2ZmNGM1MWZhNWNhMjVkZjcwYTlhMDY3ZmVkMWZmYy5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE4MDAsImhlaWdodCI6MTgwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="}}}];
+  var hung = [];
+
+  function pick(img, keys) {
+    if (!img) return "";
+    for (var i = 0; i < keys.length; i++) {
+      var node = img[keys[i]];
+      var u = node && node.url;
+      if (u) return String(u).split("?")[0];
+    }
+    return "";
+  }
+  function okUrl(u) {
+    return /^https:\/\/(images\.are\.na|d2w9rnfcy7mm78\.cloudfront\.net)\//.test(u);
+  }
+  function rewire() {
+    var boxes = [].slice.call(document.querySelectorAll(".lb"));
+    boxes.forEach(function (box, i) {
+      var prev = boxes[(i - 1 + boxes.length) % boxes.length];
+      var next = boxes[(i + 1) % boxes.length];
+      var p = box.querySelector(".p");
+      var n = box.querySelector(".n");
+      if (p && prev) p.setAttribute("href", "#" + prev.id);
+      if (n && next) n.setAttribute("href", "#" + next.id);
+    });
+  }
+  function clearBoard() {
+    [].slice.call(wall.querySelectorAll(".piece")).forEach(function (n) { n.remove(); });
+    [].slice.call(document.querySelectorAll(".lb")).forEach(function (n) { n.remove(); });
+  }
+  function tape(cls) {
+    var i = document.createElement("i");
+    i.className = "tape " + cls;
+    i.setAttribute("aria-hidden", "true");
+    return i;
+  }
+  function hang(blocks) {
+    var next = blocks.filter(function (b) {
+      return b && b.class === "Image" && b.image;
+    }).slice();
+    next.sort(function (a, b) {
+      return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+    });
+    var sig = next.map(function (b) { return b.id; }).join(",");
+    if (sig && sig === hung.join(",")) {
+      wall.setAttribute("data-state", "ready");
+      wall.removeAttribute("data-msg");
+      return;
+    }
+    clearBoard();
+    hung = [];
+    next.forEach(function (b, i) {
+      var title = b.title || "Untitled";
+      var thumb = pick(b.image, ["display", "square", "thumb", "large"]);
+      var full = pick(b.image, ["large", "display", "original"]);
+      if (!okUrl(thumb) || !okUrl(full)) return;
+      hung.push(b.id);
+      var fig = document.createElement("figure");
+      fig.className = "piece";
+      var a = document.createElement("a");
+      a.className = "sheet";
+      a.href = "#w" + b.id;
+      a.setAttribute("aria-label", title);
+      a.appendChild(tape("a"));
+      a.appendChild(tape("b"));
+      if (i % 3 === 0) { a.appendChild(tape("c")); a.appendChild(tape("d")); }
+      var img = document.createElement("img");
+      img.src = thumb;
+      img.alt = title;
+      img.loading = "lazy";
+      a.appendChild(img);
+      fig.appendChild(a);
+      var cap = document.createElement("figcaption");
+      cap.textContent = title;
+      fig.appendChild(cap);
+      wall.insertBefore(fig, ledge);
+
+      var aside = document.createElement("aside");
+      aside.className = "lb";
+      aside.id = "w" + b.id;
+      var pin = document.createElement("span");
+      pin.className = "pin";
+      pin.setAttribute("aria-hidden", "true");
+      aside.appendChild(pin);
+      var x = document.createElement("a");
+      x.className = "x"; x.href = "#"; x.setAttribute("aria-label", "Close"); x.textContent = "×";
+      aside.appendChild(x);
+      var prev = document.createElement("a");
+      prev.className = "p"; prev.href = "#"; prev.setAttribute("aria-label", "Previous"); prev.textContent = "‹";
+      aside.appendChild(prev);
+      var big = document.createElement("img");
+      big.src = full; big.alt = title;
+      aside.appendChild(big);
+      var nxt = document.createElement("a");
+      nxt.className = "n"; nxt.href = "#"; nxt.setAttribute("aria-label", "Next"); nxt.textContent = "›";
+      aside.appendChild(nxt);
+      var foot = document.createElement("div");
+      foot.className = "lb-foot";
+      var meta = document.createElement("span");
+      meta.className = "meta";
+      meta.appendChild(document.createTextNode(title + " · "));
+      var link = document.createElement("a");
+      link.href = "https://www.are.na/block/" + b.id;
+      link.textContent = "on are.na";
+      meta.appendChild(link);
+      foot.appendChild(meta);
+      var back = document.createElement("a");
+      back.className = "back"; back.href = "#"; back.textContent = "Put it back";
+      foot.appendChild(back);
+      aside.appendChild(foot);
+      document.body.appendChild(aside);
+    });
+    rewire();
+    wall.setAttribute("data-state", hung.length ? "ready" : "error");
+    if (!hung.length) wall.setAttribute("data-msg", "no drawings yet");
+    else wall.removeAttribute("data-msg");
+  }
+  function page(p, acc) {
+    return fetch("https://api.are.na/v2/channels/" + SLUG + "/contents?per=100&page=" + p)
+      .then(function (r) {
+        if (!r.ok) throw new Error("arena " + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        var list = Array.isArray(d) ? d : (d.contents || []);
+        acc = acc.concat(list);
+        if (list.length === 100) return page(p + 1, acc);
+        return acc;
+      });
+  }
+  function cacheGet() {
+    try {
+      var x = JSON.parse(localStorage.getItem("drawings-arena") || "null");
+      if (x && Array.isArray(x.blocks) && x.blocks.length) return x.blocks;
+    } catch (e) {}
+    return FALLBACK;
+  }
+  function cacheSet(blocks) {
+    try { localStorage.setItem("drawings-arena", JSON.stringify({ t: Date.now(), blocks: blocks })); } catch (e) {}
+  }
+  hang(cacheGet());
+  page(1, [])
+    .then(function (list) {
+      var blocks = list.filter(function (b) { return b && b.class === "Image" && b.image; });
+      if (blocks.length) cacheSet(blocks);
+      hang(blocks.length ? blocks : cacheGet());
+    })
+    .catch(function () {
+      if (!hung.length) hang(cacheGet());
+      if (!hung.length) {
+        wall.setAttribute("data-state", "error");
+        wall.setAttribute("data-msg", "couldn’t reach are.na");
+      }
+    });
+})();
+
 document.addEventListener("keydown", function (e) {
   if (location.hash.charAt(1) !== "w") return;
   var box = document.querySelector(location.hash);
