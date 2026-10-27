@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drawings - ～への入り口 ✴︎ Deen David</title>
-<meta name="description" content="With digital or on paper. Pulled live from Are.na.">
+<meta name="description" content="With digital or on paper. A sketchbook pulled live from Are.na.">
 <link rel="icon" href="https://cdn.blot.im/blog_e9e46454a86f4b50aded8710a3e59817/_avatars/c5a1db36-3051-4d3e-b5da-bb6bf31b219d.jpg" type="image/x-icon">
 <link rel="preconnect" href="https://cdn.blot.im">
 <link rel="preconnect" href="https://api.are.na">
@@ -14,65 +14,52 @@
 (function () {
   var root = document.documentElement;
   try {
-    var t = localStorage.getItem('theme');
-    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    root.setAttribute('data-theme', t || (prefersDark ? 'dark' : 'light'));
-  } catch (e) { root.setAttribute('data-theme', 'light'); }
+    var t = localStorage.getItem("theme");
+    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    root.setAttribute("data-theme", t || (prefersDark ? "dark" : "light"));
+  } catch (e) { root.setAttribute("data-theme", "light"); }
+
   function applySeason(season, storm) {
-    root.setAttribute('data-season', season);
-    if (storm) root.setAttribute('data-storm', 'true');
-    else root.removeAttribute('data-storm');
-    window.dispatchEvent(new CustomEvent('weatherchange'));
+    root.setAttribute("data-season", season);
+    if (storm) root.setAttribute("data-storm", "true");
+    else root.removeAttribute("data-storm");
+    window.dispatchEvent(new CustomEvent("weatherchange"));
   }
   function codeToSeason(code) {
-    if (code >= 95) return { season: 'monsoon', storm: true };
+    if (code >= 95) return { season: "monsoon", storm: true };
     if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82))
-      return { season: 'monsoon', storm: false };
-    return { season: 'clear', storm: false };
+      return { season: "monsoon", storm: false };
+    return { season: "clear", storm: false };
   }
   var pin = null;
-  try { pin = localStorage.getItem('season-pin'); } catch (e) {}
-  if (pin) { applySeason(pin, pin === 'monsoon'); return; }
+  try { pin = localStorage.getItem("season-pin"); } catch (e) {}
+  if (pin) { applySeason(pin, pin === "monsoon"); return; }
   var cached = null;
-  try { cached = JSON.parse(localStorage.getItem('weather-cache') || 'null'); } catch (e) {}
+  try { cached = JSON.parse(localStorage.getItem("weather-cache") || "null"); } catch (e) {}
   if (cached && cached.season) applySeason(cached.season, cached.storm);
-  else applySeason('monsoon', false);
+  else applySeason("monsoon", false);
   if (cached && (Date.now() - cached.t < 1800000)) return;
-  fetch('https://api.open-meteo.com/v1/forecast?latitude=12.9716&longitude=77.5946&current=weather_code&timezone=Asia%2FKolkata')
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=12.9716&longitude=77.5946&current=weather_code&timezone=Asia%2FKolkata")
     .then(function (r) { return r.json(); })
     .then(function (d) {
       var code = d && d.current && d.current.weather_code;
-      if (typeof code !== 'number') return;
+      if (typeof code !== "number") return;
       var m = codeToSeason(code);
-      try { localStorage.setItem('weather-cache', JSON.stringify({ season: m.season, storm: m.storm, t: Date.now() })); } catch (e) {}
+      try { localStorage.setItem("weather-cache", JSON.stringify({ season: m.season, storm: m.storm, t: Date.now() })); } catch (e) {}
       applySeason(m.season, m.storm);
     })
     .catch(function () {});
 })();
 </script>
+<script>
+(function () {
+  var narrow = window.matchMedia("(max-width: 759px)").matches || window.innerHeight < 620;
+  document.documentElement.classList.toggle("sb-single", narrow);
+})();
+</script>
 <link rel="stylesheet" href="https://cdn.blot.im/template/2a/39/735fd4a3cc66b29e96db1cfe403a/style.css">
 <style>
-.container{padding-top:0;padding-bottom:1.4em}
-.board{width:min(1080px,100%);margin:0 auto 4.5em;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.8rem 2.1rem;align-items:start;position:relative;min-height:6rem}
-.board[data-state=loading],.board[data-state=error]{min-height:12rem}
-.board[data-state=loading]:before,.board[data-state=error]:before{content:attr(data-msg);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(var(--text-rgb),.4);pointer-events:none}
-.piece{margin:0;padding:0;min-width:0}
-.sheet{display:block;color:inherit;text-decoration:none}
-.sheet img{display:block;width:100%;height:auto;vertical-align:middle}
-.sheet:hover{color:inherit;opacity:.88}
-.piece figcaption{margin:.9em .2em 0;text-align:center;font-size:13px;line-height:1.45;font-style:italic;color:rgba(var(--text-rgb),.55)}
-.lb{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:max(3.2rem,env(safe-area-inset-top)) 3rem 5.2rem;background:#11100e;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden;overscroll-behavior:none;transition:opacity .2s,visibility .2s}
-.lb:target{visibility:visible;opacity:1;pointer-events:auto}
-body:has(.lb:target){overflow:hidden}
-.lb img{max-width:min(92vw,1200px);max-height:calc(100dvh - 8rem);width:auto;height:auto;object-fit:contain}
-.lb .x,.lb .p,.lb .n{position:absolute;color:#f4efe6;background:0;border:0;font:inherit;text-decoration:none;z-index:2}
-.lb .x{top:max(.7rem,env(safe-area-inset-top));right:1rem;font-size:28px;line-height:1}
-.lb .p,.lb .n{top:50%;transform:translateY(-50%);font-size:32px;padding:.4em}
-.lb .p{left:.15rem}.lb .n{right:.15rem}
-.lb-foot{position:absolute;left:0;right:0;bottom:0;padding:.85rem 1.25rem max(.9rem,env(safe-area-inset-bottom));text-align:center;color:#f4efe6;font-size:13px;font-style:italic;background:linear-gradient(to top,#11100e 55%,transparent)}
-.lb .meta a{color:inherit;text-decoration:none}
-@media(max-width:800px){.board{grid-template-columns:1fr 1fr;gap:2rem 1.2rem}}
-@media(max-width:520px){.board{grid-template-columns:1fr;gap:2.2rem}}
+.container{padding-top:0;padding-bottom:.15em}
 .site-header{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:1em;padding:22px 28px 0;margin:0 0 2em}
 .site-header-bar,.site-nav,.site-menu-toggle,.site-nav-toggle-input{display:none !important}
 .site-title{font-size:calc(15px * .6667);font-weight:400;letter-spacing:.1em;text-transform:uppercase;margin:0;line-height:1.7}
@@ -80,6 +67,219 @@ body:has(.lb:target){overflow:hidden}
 .home-btn{display:inline-flex;align-items:center;justify-content:center;width:1.75em;height:1.75em;padding:0;margin:0;border:0;background:none;color:inherit;cursor:pointer;line-height:1}
 .home-btn svg{display:block;width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.25;stroke-linejoin:round;stroke-linecap:round}
 .home-btn:hover{color:var(--accent,#b0673a)}
+.sb{
+  --paper:#f6f3ec;
+  --ink:#1c1b18;
+  --edge:#e4dfd4;
+  --cover:#2c2926;
+  --label:#f3efe6;
+  --stitch:#8d897f;
+  --ease:cubic-bezier(.3,.1,.2,1);
+  --ph:min(540px,calc(100svh - 18rem));
+  --pw:min(calc(var(--ph) * .74),calc(42vw - 1rem));
+  box-sizing:border-box;
+  width:100%;
+  margin:.2rem auto 2.4rem;
+  padding:0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.9rem;
+  user-select:none;
+  -webkit-user-select:none;
+}
+:root[data-season=monsoon] .sb{--paper:#eef1ef;--edge:#d5dbd7;--cover:#2a312e}
+:root[data-season=clear] .sb{--paper:#fbf8f3}
+:root[data-theme=dark] .sb{--paper:#1b1a17;--ink:#eceae4;--edge:#2e2c28;--cover:#10100e;--label:#f3efe6;--stitch:#5c5952}
+html.sb-single .sb{
+  --pw:min(440px,calc(100vw - 5rem));
+  --ph:min(calc(var(--pw) * 1.28),calc(100svh - 16.5rem));
+}
+.sb-stage{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  perspective:2400px;
+  perspective-origin:50% 46%;
+  touch-action:pan-y;
+  cursor:pointer;
+  padding:.15rem 0 .4rem;
+}
+.sb-book{
+  position:relative;
+  width:calc(var(--pw) * 2);
+  height:var(--ph);
+  max-width:100%;
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
+  transition:transform .78s var(--ease);
+}
+html.sb-single .sb-book{width:var(--pw)}
+.sb-book.at-start{transform:translateX(calc(var(--pw) * -.5))}
+.sb-book.at-end{transform:translateX(calc(var(--pw) * .5))}
+html.sb-single .sb-book.at-start,
+html.sb-single .sb-book.at-end{transform:none}
+.sb-book::before{
+  content:"";
+  position:absolute;
+  top:8%;
+  bottom:8%;
+  left:calc(50% - 7px);
+  width:14px;
+  z-index:80;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 4px,var(--stitch) 1.05px,transparent 1.35px) center top / 14px 20px repeat-y;
+}
+html.sb-single .sb-book::before{left:-6px}
+.sb-leaf{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:var(--pw);
+  height:100%;
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
+  transform:rotateY(0deg);
+  transition:transform .78s var(--ease);
+}
+html.sb-single .sb-leaf{left:0}
+.sb-leaf.flipped{transform:rotateY(-180deg)}
+html.sb-single .sb-leaf.flipped{
+  opacity:0;
+  transition:transform .78s var(--ease),opacity .2s linear .4s;
+}
+.sb-static .sb-leaf,
+.sb-static .sb-book{transition:none!important}
+.sb-face{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  color:var(--ink);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  background:var(--paper);
+}
+.sb-front{
+  border-radius:1px 3px 3px 1px;
+  transform:translateZ(1px);
+  background:
+    linear-gradient(to right,rgba(0,0,0,.1),rgba(0,0,0,0) 10%),
+    var(--paper);
+  box-shadow:0 18px 34px -22px rgba(0,0,0,.55),0 0 0 1px var(--edge);
+}
+.sb-back{
+  border-radius:3px 1px 1px 3px;
+  transform:rotateY(180deg) translateZ(1px);
+  background:
+    linear-gradient(to left,rgba(0,0,0,.1),rgba(0,0,0,0) 10%),
+    var(--paper);
+  box-shadow:0 18px 34px -22px rgba(0,0,0,.55),0 0 0 1px var(--edge);
+}
+.sb-face.sb-cover{
+  background:
+    radial-gradient(120% 80% at 0% 0%,rgba(255,255,255,.07),transparent 46%),
+    var(--cover);
+  color:#f4f1ea;
+  justify-content:center;
+  align-items:flex-start;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 18px 34px -22px rgba(0,0,0,.62);
+}
+.sb-label{
+  margin-left:12%;
+  padding:.75rem .95rem .8rem;
+  background:var(--label);
+  color:#1c1b18;
+  max-width:74%;
+}
+.sb-label strong{
+  display:block;
+  font-weight:inherit;
+  font-size:1.4rem;
+  letter-spacing:-.02em;
+  line-height:1.2;
+}
+.sb-label span{
+  display:block;
+  margin-top:.4rem;
+  padding-top:.35rem;
+  border-top:1px solid rgba(28,27,24,.16);
+  font-size:.78rem;
+  opacity:.68;
+}
+.sb-end{justify-content:flex-end}
+.sb-end .sb-label{margin:0 0 16% 12%}
+.sb-end .sb-label strong{font-size:1.15rem}
+.sb-art{
+  flex:1;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8% 7% 0;
+}
+.sb-art img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  mix-blend-mode:multiply;
+  -webkit-user-drag:none;
+  pointer-events:none;
+}
+:root[data-theme=dark] .sb-art img{
+  mix-blend-mode:normal;
+  background:#f6f3ec;
+}
+.sb-cap{
+  display:flex;
+  justify-content:space-between;
+  gap:.75em;
+  padding:.4rem 7% 6%;
+  font-size:.75rem;
+  line-height:1.35;
+  font-style:italic;
+  opacity:.58;
+  min-height:1.35em;
+}
+.sb-cap span:first-child{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.sb-nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1.1rem;
+  width:min(26rem,100%);
+  font-size:.85rem;
+}
+.sb-btn{
+  font:inherit;
+  color:inherit;
+  background:none;
+  border:0;
+  padding:.35em .1em;
+  cursor:pointer;
+  opacity:.72;
+}
+.sb-btn:hover{opacity:1}
+.sb-btn:disabled{opacity:.28;cursor:default}
+.sb-btn:focus-visible{outline:1px solid currentColor;outline-offset:3px}
+.sb-count{
+  min-width:8.5em;
+  text-align:center;
+  opacity:.55;
+  font-variant-numeric:tabular-nums;
+  font-size:.8rem;
+}
+.sb-msg{font-size:.85rem;opacity:.7;text-align:center;margin:0}
+@media (prefers-reduced-motion:reduce){
+  .sb-leaf,.sb-book,html.sb-single .sb-leaf.flipped{transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -95,22 +295,38 @@ body:has(.lb:target){overflow:hidden}
   </div>
 </header>
 <script>
-(function() {
-  var btn = document.getElementById('theme-toggle');
+(function () {
+  var btn = document.getElementById("theme-toggle");
   if (!btn) return;
-  btn.addEventListener('click', function() {
-    var current = document.documentElement.getAttribute('data-theme');
-    var next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme', next); } catch (e) {}
+  btn.addEventListener("click", function () {
+    var current = document.documentElement.getAttribute("data-theme");
+    var next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
   });
 })();
 </script>
 <div class="container">
 <h1 id="drawings">Drawings</h1>
-<p>With digital or on paper.</p>
+<p>With digital or on paper. Turn the page.</p>
 </div>
-<div class="board" id="board" data-state="loading" data-msg="pulling from are.na"></div>
+<div class="sb" id="sb">
+  <div class="sb-stage" id="sbStage">
+    <div class="sb-book at-start" id="sbBook" aria-label="Sketchbook of drawings">
+      <div class="sb-leaf">
+        <div class="sb-face sb-front sb-cover">
+          <div class="sb-label"><strong>Drawings</strong><span>Deen David</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-nav">
+    <button type="button" class="sb-btn" id="sbPrev" disabled>Previous</button>
+    <span class="sb-count" id="sbCount" aria-live="polite"></span>
+    <button type="button" class="sb-btn" id="sbNext">Next</button>
+  </div>
+  <p class="sb-msg" id="sbMsg" hidden></p>
+</div>
 <footer class="site-footer">
   <hr class="full">
   <div class="footer-row">
@@ -130,67 +346,86 @@ body:has(.lb:target){overflow:hidden}
 <script>
 (function () {
   var root = document.documentElement;
-  var clock = document.getElementById('blr-clock');
+  var clock = document.getElementById("blr-clock");
   function tick() {
     if (!clock) return;
-    clock.textContent = new Date().toLocaleTimeString('en-IN', {
-      hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata'
+    clock.textContent = new Date().toLocaleTimeString("en-IN", {
+      hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata"
     }).toLowerCase();
   }
   tick();
   setInterval(tick, 15000);
-  var word = document.getElementById('sky-word');
+  var word = document.getElementById("sky-word");
   function currentWord() {
-    var s = root.getAttribute('data-season');
-    if (s === 'monsoon') return 'grey';
-    if (s === 'clear') return 'clear skies';
-    return '—';
+    var s = root.getAttribute("data-season");
+    if (s === "monsoon") return "grey";
+    if (s === "clear") return "clear skies";
+    return "—";
   }
   function updateWord() { if (word) word.textContent = currentWord(); }
   updateWord();
-  window.addEventListener('weatherchange', updateWord);
-  var sky = document.querySelector('.footer-sky');
+  window.addEventListener("weatherchange", updateWord);
+  var sky = document.querySelector(".footer-sky");
   function setSeason(season) {
-    root.setAttribute('data-season', season);
-    root.removeAttribute('data-storm');
-    window.dispatchEvent(new CustomEvent('weatherchange'));
+    root.setAttribute("data-season", season);
+    root.removeAttribute("data-storm");
+    window.dispatchEvent(new CustomEvent("weatherchange"));
   }
   function refetchLive() {
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=12.9716&longitude=77.5946&current=weather_code&timezone=Asia%2FKolkata')
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=12.9716&longitude=77.5946&current=weather_code&timezone=Asia%2FKolkata")
       .then(function (r) { return r.json(); })
       .then(function (d) {
         var code = d && d.current && d.current.weather_code;
-        if (typeof code !== 'number') return;
+        if (typeof code !== "number") return;
         var rainy = code >= 95 || (code >= 51 && code <= 67) || (code >= 80 && code <= 82);
-        var season = rainy ? 'monsoon' : 'clear';
-        try { localStorage.setItem('weather-cache', JSON.stringify({ season: season, storm: false, t: Date.now() })); } catch (e) {}
+        var season = rainy ? "monsoon" : "clear";
+        try { localStorage.setItem("weather-cache", JSON.stringify({ season: season, storm: false, t: Date.now() })); } catch (e) {}
         setSeason(season);
       })
       .catch(function () {});
   }
   if (sky) {
-    sky.addEventListener('click', function () {
+    sky.addEventListener("click", function () {
       var pinned = false;
-      try { pinned = localStorage.getItem('season-pin') === 'monsoon'; } catch (e) {}
+      try { pinned = localStorage.getItem("season-pin") === "monsoon"; } catch (e) {}
       if (pinned) {
-        try { localStorage.removeItem('season-pin'); localStorage.removeItem('weather-cache'); } catch (e) {}
+        try { localStorage.removeItem("season-pin"); localStorage.removeItem("weather-cache"); } catch (e) {}
         refetchLive();
       } else {
-        try { localStorage.setItem('season-pin', 'monsoon'); } catch (e) {}
-        setSeason('monsoon');
+        try { localStorage.setItem("season-pin", "monsoon"); } catch (e) {}
+        setSeason("monsoon");
       }
     });
   }
 })();
-
+</script>
+<script>
 (function () {
-  var SLUG = "drawings-37mwydwa-8a";
-  var board = document.getElementById("board");
-  if (!board) return;
-  var FALLBACK = [];
-  var hung = [];
-  function pick(img, keys) {
+  var CHANNEL = "drawings-37mwydwa-8a";
+  var FALLBACK = [{"title":"Test run","created_at":"2026-04-07T13:06:02.102Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4OC9vcmlnaW5hbF85ZGE0MWFlZTkyM2M3YjgwYWRjMTlmZmI4MTBjODFmNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Loaded fries","created_at":"2026-04-07T13:06:02.093Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ny9vcmlnaW5hbF8xMzcxMTgzNzU4MGIyOWYzZDY1ZTFkNmQ0YWMwNTc5Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Matter um","created_at":"2026-04-07T13:06:02.091Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ4Ni9vcmlnaW5hbF8wMTU3ZjVkZmIwM2I3YTMwN2QwZTNhODVhNzQxYjM1Yy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Can’t remember when.","created_at":"2026-04-07T13:00:22.858Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQxNC9vcmlnaW5hbF8wYzQ2NmQ5ZDBjY2Y4MjI0ZjQ3ZWNiNDhmY2Y4YTVkOS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Phantom","created_at":"2026-04-07T13:01:36.916Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQzMi9vcmlnaW5hbF85MGQ3YzBiNDU5Y2UxMThjNzE5NmI0YTU5ODJlZWQyZS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Hugging Face","created_at":"2026-04-07T13:02:14.670Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ0My9vcmlnaW5hbF9kOTExOGU2Y2RmMjk3ZTdjYWY3NWQ5OTE0ZTA1NDYwZC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Together.","created_at":"2026-04-07T13:03:34.625Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ2MC9vcmlnaW5hbF9jY2IwYjdlMmNlYzNjNmE0YTA5MjZkZGQ1YjlkYzI2Mi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Might not.","created_at":"2026-04-07T13:03:08.165Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1My9vcmlnaW5hbF9iZGYwMjA5ZTAwZjU2NWNhMzRjMzZkYzI4ZGNiNDI5YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"Might go on me.","created_at":"2026-04-07T13:03:08.177Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTA4NDQ1NC9vcmlnaW5hbF9kNGRkMTBmYmQ2NTk2ZTA2N2QwMGUwZjQyYzlmMjI1Ni5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6MTIwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwid2VicCI6eyJxdWFsaXR5Ijo3NX0sImpwZWciOnsicXVhbGl0eSI6NzV9LCJyb3RhdGUiOm51bGx9fQ=="},{"title":"unfinished stare","created_at":"2026-05-03T10:34:50.677Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI0NTc5NTU0Mi9vcmlnaW5hbF9hN2UxZTY5MzNlOTdlNmZkYmZlY2RkZGYwNDU3MDRlMC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjEyMDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0="},{"title":"Avatar","created_at":"2026-09-11T09:31:55.178Z","src":"https://images.are.na/eyJidWNrZXQiOiJhcmVuYV9pbWFnZXMiLCJrZXkiOiI1MDMzMjU4OC9vcmlnaW5hbF9iMmMwOTYyMzlmZGY4YmVjMzZjMWM5Zjc2NGY1NDljOC5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjEyMDAsImZpdCI6Imluc2lkZSIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX0sIndlYnAiOnsicXVhbGl0eSI6NzV9LCJqcGVnIjp7InF1YWxpdHkiOjc1fSwicm90YXRlIjpudWxsfX0="}];
+  var book = document.getElementById("sbBook");
+  var stage = document.getElementById("sbStage");
+  var prevBtn = document.getElementById("sbPrev");
+  var nextBtn = document.getElementById("sbNext");
+  var count = document.getElementById("sbCount");
+  var msg = document.getElementById("sbMsg");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var drawings = [];
+  var pages = [];
+  var leaves = [];
+  var idx = 0;
+  var mode = null;
+  var place = { kind: "cover" };
+
+  function isSingle() {
+    return window.matchMedia("(max-width: 759px)").matches || window.innerHeight < 620;
+  }
+  function okUrl(u) {
+    return /^https:\/\/(images\.are\.na|d2w9rnfcy7mm78\.cloudfront\.net)\//.test(u || "");
+  }
+  function pick(img) {
     if (!img) return "";
+    var keys = ["display", "large", "original", "thumb"];
     for (var i = 0; i < keys.length; i++) {
       var node = img[keys[i]];
       var u = node && node.url;
@@ -198,113 +433,269 @@ body:has(.lb:target){overflow:hidden}
     }
     return "";
   }
-  function okUrl(u) {
-    return /^https:\/\/(images\.are\.na|d2w9rnfcy7mm78\.cloudfront\.net)\//.test(u);
-  }
-  function rewire() {
-    var boxes = [].slice.call(document.querySelectorAll(".lb"));
-    boxes.forEach(function (box, i) {
-      var prev = boxes[(i - 1 + boxes.length) % boxes.length];
-      var next = boxes[(i + 1) % boxes.length];
-      var p = box.querySelector(".p");
-      var n = box.querySelector(".n");
-      if (p && prev) p.setAttribute("href", "#" + prev.id);
-      if (n && next) n.setAttribute("href", "#" + next.id);
+  function normalize(list) {
+    var out = [];
+    (list || []).forEach(function (b) {
+      if (!b) return;
+      var src = b.src || pick(b.image);
+      if (!okUrl(src)) return;
+      out.push({ src: src, title: b.title || "", created: b.created_at || b.created || "" });
     });
-  }
-  function clearBoard() {
-    [].slice.call(board.querySelectorAll(".piece")).forEach(function (n) { n.remove(); });
-    [].slice.call(document.querySelectorAll(".lb")).forEach(function (n) { n.remove(); });
-  }
-  function hang(blocks) {
-    var next = blocks.filter(function (b) { return b && b.class === "Image" && b.image; }).slice();
-    next.sort(function (a, b) { return new Date(b.created_at || 0) - new Date(a.created_at || 0); });
-    var sig = next.map(function (b) { return b.id; }).join(",");
-    if (sig && sig === hung.join(",")) {
-      board.setAttribute("data-state", "ready");
-      board.removeAttribute("data-msg");
-      return;
-    }
-    clearBoard();
-    hung = [];
-    next.forEach(function (b) {
-      var title = b.title || "Untitled";
-      var thumb = pick(b.image, ["display", "square", "thumb", "large"]);
-      var full = pick(b.image, ["large", "display", "original"]);
-      if (!okUrl(thumb) || !okUrl(full)) return;
-      hung.push(b.id);
-      var fig = document.createElement("figure");
-      fig.className = "piece";
-      var a = document.createElement("a");
-      a.className = "sheet"; a.href = "#w" + b.id; a.setAttribute("aria-label", title);
-      var img = document.createElement("img");
-      img.src = thumb; img.alt = title; img.loading = "lazy";
-      a.appendChild(img); fig.appendChild(a);
-      var cap = document.createElement("figcaption"); cap.textContent = title; fig.appendChild(cap);
-      board.appendChild(fig);
-      var aside = document.createElement("aside"); aside.className = "lb"; aside.id = "w" + b.id;
-      var x = document.createElement("a"); x.className = "x"; x.href = "#"; x.setAttribute("aria-label", "Close"); x.textContent = "\u00d7"; aside.appendChild(x);
-      var prev = document.createElement("a"); prev.className = "p"; prev.href = "#"; prev.setAttribute("aria-label", "Previous"); prev.textContent = "\u2039"; aside.appendChild(prev);
-      var big = document.createElement("img"); big.src = full; big.alt = title; aside.appendChild(big);
-      var nxt = document.createElement("a"); nxt.className = "n"; nxt.href = "#"; nxt.setAttribute("aria-label", "Next"); nxt.textContent = "\u203a"; aside.appendChild(nxt);
-      var foot = document.createElement("div"); foot.className = "lb-foot";
-      var meta = document.createElement("span"); meta.className = "meta";
-      meta.appendChild(document.createTextNode(title + " \u00b7 "));
-      var link = document.createElement("a"); link.href = "https://www.are.na/block/" + b.id; link.textContent = "on are.na";
-      meta.appendChild(link); foot.appendChild(meta); aside.appendChild(foot);
-      document.body.appendChild(aside);
-    });
-    rewire();
-    board.setAttribute("data-state", hung.length ? "ready" : "error");
-    if (!hung.length) board.setAttribute("data-msg", "no drawings yet");
-    else board.removeAttribute("data-msg");
-  }
-  function page(p, acc) {
-    return fetch("https://api.are.na/v2/channels/" + SLUG + "/contents?per=100&page=" + p)
-      .then(function (r) {
-        if (!r.ok) throw new Error("arena " + r.status);
-        return r.json();
-      })
-      .then(function (d) {
-        var list = Array.isArray(d) ? d : (d.contents || []);
-        acc = acc.concat(list);
-        if (list.length === 100) return page(p + 1, acc);
-        return acc;
-      });
+    out.sort(function (a, b) { return new Date(b.created || 0) - new Date(a.created || 0); });
+    return out;
   }
   function cacheGet() {
     try {
       var x = JSON.parse(localStorage.getItem("drawings-arena") || "null");
-      if (x && Array.isArray(x.blocks) && x.blocks.length) return x.blocks;
+      if (x && Array.isArray(x.blocks) && x.blocks.length) return normalize(x.blocks);
     } catch (e) {}
-    return FALLBACK;
+    return normalize(FALLBACK);
   }
   function cacheSet(blocks) {
     try { localStorage.setItem("drawings-arena", JSON.stringify({ t: Date.now(), blocks: blocks })); } catch (e) {}
   }
-  hang(cacheGet());
-  page(1, [])
-    .then(function (list) {
-      var blocks = list.filter(function (b) { return b && b.class === "Image" && b.image; });
-      if (blocks.length) cacheSet(blocks);
-      hang(blocks.length ? blocks : cacheGet());
-    })
-    .catch(function () {
-      if (!hung.length) hang(cacheGet());
-      if (!hung.length) {
-        board.setAttribute("data-state", "error");
-        board.setAttribute("data-msg", "couldn\u2019t reach are.na");
+  function loadArena() {
+    function page(p, acc) {
+      return fetch("https://api.are.na/v2/channels/" + encodeURIComponent(CHANNEL) + "/contents?per=100&page=" + p)
+        .then(function (r) {
+          if (!r.ok) throw new Error(String(r.status));
+          return r.json();
+        })
+        .then(function (d) {
+          var items = Array.isArray(d) ? d : (d.contents || []);
+          acc = acc.concat(items);
+          if (items.length === 100 && p < 20) return page(p + 1, acc);
+          return acc;
+        });
+    }
+    return page(1, []).then(normalize);
+  }
+  function buildPages() {
+    var P = [{ type: "cover" }];
+    drawings.forEach(function (d, i) { P.push({ type: "art", d: d, n: i + 1 }); });
+    if (mode === "spread" && (P.length % 2 === 0)) P.push({ type: "blank" });
+    P.push({ type: "end" });
+    return P;
+  }
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text) node.textContent = text;
+    return node;
+  }
+  function face(p, side) {
+    var f = el("div", "sb-face sb-" + side);
+    if (!p || p.type === "blank") return f;
+    if (p.type === "cover" || p.type === "end") {
+      f.classList.add("sb-cover");
+      if (p.type === "end") f.classList.add("sb-end");
+      var label = el("div", "sb-label");
+      label.appendChild(el("strong", "", p.type === "cover" ? "Drawings" : "Made from iterations."));
+      if (p.type === "cover") label.appendChild(el("span", "", "Deen David"));
+      f.appendChild(label);
+    } else if (p.type === "art") {
+      var art = el("div", "sb-art");
+      var img = el("img");
+      img.setAttribute("data-src", p.d.src);
+      img.alt = p.d.title || ("Drawing " + p.n);
+      img.draggable = false;
+      art.appendChild(img);
+      var cap = el("div", "sb-cap");
+      cap.appendChild(el("span", "", p.d.title));
+      cap.appendChild(el("span", "", String(p.n)));
+      f.appendChild(art);
+      f.appendChild(cap);
+    }
+    return f;
+  }
+  function visible() {
+    if (mode === "spread") return [pages[2 * idx - 1], pages[2 * idx]].filter(Boolean);
+    return pages[idx] ? [pages[idx]] : [];
+  }
+  function remember() {
+    var vis = visible();
+    for (var i = 0; i < vis.length; i++) {
+      if (vis[i].type === "art") return { kind: "art", n: vis[i].n };
+    }
+    for (var j = 0; j < vis.length; j++) {
+      if (vis[j].type === "end") return { kind: "end" };
+    }
+    return { kind: "cover" };
+  }
+  function idxFor(pos) {
+    if (!pos || pos.kind === "cover") return 0;
+    if (pos.kind === "end") return mode === "single" ? Math.max(0, leaves.length - 1) : leaves.length;
+    if (mode === "single") {
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i].type === "art" && pages[i].n === pos.n) return i;
       }
+      return 0;
+    }
+    for (var k = 0; k < pages.length; k++) {
+      if (pages[k].type === "art" && pages[k].n === pos.n) return Math.ceil(k / 2);
+    }
+    return 0;
+  }
+  function setZ() {
+    var n = leaves.length;
+    leaves.forEach(function (l, i) {
+      if (l._anim) return;
+      l.style.zIndex = i < idx ? String(i + 1) : String(n + (n - i));
     });
+  }
+  function loadNear() {
+    var a = Math.max(0, idx - 1);
+    var b = Math.min(leaves.length, idx + 3);
+    for (var i = a; i < b; i++) {
+      if (!leaves[i]) continue;
+      leaves[i].querySelectorAll("img[data-src]").forEach(function (img) {
+        img.src = img.getAttribute("data-src");
+        img.removeAttribute("data-src");
+      });
+    }
+  }
+  function update() {
+    var n = leaves.length;
+    var max = mode === "single" ? Math.max(0, n - 1) : n;
+    book.classList.toggle("at-start", mode === "spread" && idx === 0);
+    book.classList.toggle("at-end", mode === "spread" && idx === n);
+    prevBtn.disabled = idx <= 0;
+    nextBtn.disabled = idx >= max;
+    var nums = visible().filter(function (p) { return p && p.type === "art"; }).map(function (p) { return p.n; });
+    var total = drawings.length;
+    if (!total) count.textContent = "";
+    else if (nums.length === 2) count.textContent = nums[0] + "\u2013" + nums[1] + " of " + total;
+    else if (nums.length === 1) count.textContent = nums[0] + " of " + total;
+    else count.textContent = total + (total === 1 ? " drawing" : " drawings");
+    loadNear();
+  }
+  function go(dir) {
+    var n = leaves.length;
+    var max = mode === "single" ? Math.max(0, n - 1) : n;
+    var leaf;
+    if (dir > 0 && idx < max) {
+      leaf = leaves[idx];
+      idx += 1;
+      leaf.classList.add("flipped");
+    } else if (dir < 0 && idx > 0) {
+      idx -= 1;
+      leaf = leaves[idx];
+      leaf.classList.remove("flipped");
+    } else return;
+    leaf._anim = true;
+    leaf.style.zIndex = "1000";
+    clearTimeout(leaf._t);
+    leaf._t = setTimeout(function () { leaf._anim = false; setZ(); }, reduce ? 0 : 820);
+    setZ();
+    update();
+    place = remember();
+  }
+  function build() {
+    if (pages.length) place = remember();
+    mode = isSingle() ? "single" : "spread";
+    document.documentElement.classList.toggle("sb-single", mode === "single");
+    document.getElementById("sb").classList.add("sb-static");
+    pages = buildPages();
+    book.textContent = "";
+    leaves = [];
+    var sequence = mode === "single" ? pages.filter(function (p) { return p.type !== "blank"; }) : pages;
+    if (mode === "single") pages = sequence;
+    if (mode === "single") {
+      pages.forEach(function (p) {
+        var leaf = el("div", "sb-leaf");
+        leaf.appendChild(face(p, "front"));
+        leaf.appendChild(face({ type: "blank" }, "back"));
+        book.appendChild(leaf);
+        leaves.push(leaf);
+      });
+    } else {
+      for (var k = 0; k < pages.length; k += 2) {
+        var leaf = el("div", "sb-leaf");
+        leaf.appendChild(face(pages[k], "front"));
+        leaf.appendChild(face(pages[k + 1], "back"));
+        book.appendChild(leaf);
+        leaves.push(leaf);
+      }
+    }
+    idx = idxFor(place);
+    if (mode === "single") idx = Math.max(0, Math.min(idx, Math.max(0, leaves.length - 1)));
+    else idx = Math.max(0, Math.min(idx, leaves.length));
+    leaves.forEach(function (l, i) { l.classList.toggle("flipped", i < idx); });
+    setZ();
+    update();
+    place = remember();
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { document.getElementById("sb").classList.remove("sb-static"); });
+    });
+  }
+  var sx = null;
+  var sy = null;
+  var tracking = false;
+  stage.addEventListener("pointerdown", function (e) {
+    if (e.button && e.button !== 0) return;
+    tracking = true;
+    sx = e.clientX;
+    sy = e.clientY;
+    if (stage.setPointerCapture) {
+      try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+  });
+  function endGesture(e) {
+    if (!tracking || sx === null) return;
+    tracking = false;
+    var dx = e.clientX - sx;
+    var dy = e.clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+    else if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+      var r = book.getBoundingClientRect();
+      go(e.clientX > r.left + r.width / 2 ? 1 : -1);
+    }
+  }
+  stage.addEventListener("pointerup", endGesture);
+  stage.addEventListener("pointercancel", function () { tracking = false; sx = null; });
+  prevBtn.addEventListener("click", function () { go(-1); });
+  nextBtn.addEventListener("click", function () { go(1); });
+  document.addEventListener("keydown", function (e) {
+    var tag = e.target && e.target.tagName;
+    if (tag && /input|textarea|select/i.test(tag)) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+  });
+  var resizeT = 0;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () {
+      var next = isSingle() ? "single" : "spread";
+      if (next !== mode) build();
+    }, 140);
+  });
+  drawings = cacheGet();
+  if (!drawings.length) {
+    msg.hidden = false;
+    msg.textContent = "No drawings in the channel yet.";
+  }
+  build();
+  loadArena().then(function (fresh) {
+    if (!fresh.length) return;
+    cacheSet(fresh.map(function (d) {
+      return { title: d.title, created_at: d.created, src: d.src };
+    }));
+    var same = fresh.length === drawings.length && fresh.every(function (d, i) {
+      return drawings[i] && drawings[i].src === d.src && drawings[i].title === d.title;
+    });
+    if (same) return;
+    drawings = fresh;
+    pages = [];
+    msg.hidden = true;
+    build();
+  }).catch(function () {
+    if (!drawings.length) {
+      msg.hidden = false;
+      msg.textContent = "Couldn't load the drawings. Refresh to try again.";
+    }
+  });
 })();
-document.addEventListener("keydown", function (e) {
-  if (location.hash.charAt(1) !== "w") return;
-  var box = document.querySelector(location.hash);
-  if (!box) return;
-  if (e.key === "Escape") location.hash = "";
-  if (e.key === "ArrowRight") { var n = box.querySelector(".n"); if (n) location.hash = n.getAttribute("href"); }
-  if (e.key === "ArrowLeft") { var p = box.querySelector(".p"); if (p) location.hash = p.getAttribute("href"); }
-});
 </script>
 </body>
 </html>
