@@ -60,6 +60,13 @@
 <link rel="stylesheet" href="https://cdn.blot.im/template/2a/39/735fd4a3cc66b29e96db1cfe403a/style.css">
 <style>
 .container{padding-top:0;padding-bottom:.15em}
+@font-face{
+  font-family:"Bookhand";
+  src:url("hand.woff2") format("woff2");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
 .site-header{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:1em;padding:22px 28px 0;margin:0 0 2em}
 .site-header-bar,.site-nav,.site-menu-toggle,.site-nav-toggle-input{display:none !important}
 .site-title{font-size:calc(15px * .6667);font-weight:400;letter-spacing:.1em;text-transform:uppercase;margin:0;line-height:1.7}
@@ -166,52 +173,99 @@ html.sb-single .sb-leaf.flipped{
   border-radius:1px 3px 3px 1px;
   transform:translateZ(1px);
   background:
+    radial-gradient(90% 55% at 100% 0%, rgba(255,255,255,.4), transparent 42%),
+    radial-gradient(70% 50% at 0% 100%, rgba(90,60,30,.045), transparent 52%),
     linear-gradient(to right,rgba(0,0,0,.1),rgba(0,0,0,0) 10%),
     var(--paper);
-  box-shadow:0 18px 34px -22px rgba(0,0,0,.55),0 0 0 1px var(--edge);
+  box-shadow:inset 0 0 28px rgba(80,55,20,.045),0 18px 34px -22px rgba(0,0,0,.55),0 0 0 1px var(--edge);
 }
 .sb-back{
   border-radius:3px 1px 1px 3px;
   transform:rotateY(180deg) translateZ(1px);
   background:
+    radial-gradient(90% 55% at 0% 0%, rgba(255,255,255,.4), transparent 42%),
+    radial-gradient(70% 50% at 100% 100%, rgba(90,60,30,.045), transparent 52%),
     linear-gradient(to left,rgba(0,0,0,.1),rgba(0,0,0,0) 10%),
     var(--paper);
-  box-shadow:0 18px 34px -22px rgba(0,0,0,.55),0 0 0 1px var(--edge);
+  box-shadow:inset 0 0 28px rgba(80,55,20,.045),0 18px 34px -22px rgba(0,0,0,.55),0 0 0 1px var(--edge);
 }
+.sb-face::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:5;
+  opacity:.32;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size:170px 170px;
+}
+:root[data-theme=dark] .sb-face::after{mix-blend-mode:overlay;opacity:.2}
 .sb-face.sb-cover{
   background:
-    radial-gradient(120% 80% at 0% 0%,rgba(255,255,255,.07),transparent 46%),
-    var(--cover);
-  color:#f4f1ea;
-  justify-content:center;
+    linear-gradient(122deg, transparent 58%, rgba(255,255,255,.16) 59%, transparent 60.4%),
+    radial-gradient(80% 55% at 92% 100%, rgba(70,45,15,.16), transparent 54%),
+    radial-gradient(48% 36% at 6% 0%, rgba(255,255,255,.32), transparent 46%),
+    linear-gradient(168deg, #d9ccb5, #c6b79a 48%, #d3c5ac);
+  color:#3a3228;
+  justify-content:flex-start;
   align-items:flex-start;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 18px 34px -22px rgba(0,0,0,.62);
+  box-shadow:inset 0 0 0 1px rgba(70,45,15,.1), inset 0 0 40px rgba(80,50,20,.08), 0 18px 34px -22px rgba(0,0,0,.5);
 }
-.sb-label{
-  margin-left:12%;
-  padding:.75rem .95rem .8rem;
-  background:var(--label);
-  color:#1c1b18;
-  max-width:74%;
+:root[data-season=monsoon] .sb-face.sb-cover{
+  background:
+    linear-gradient(122deg, transparent 58%, rgba(255,255,255,.14) 59%, transparent 60.4%),
+    radial-gradient(80% 55% at 92% 100%, rgba(20,40,30,.14), transparent 54%),
+    radial-gradient(48% 36% at 6% 0%, rgba(255,255,255,.22), transparent 46%),
+    linear-gradient(168deg, #cdd6cc, #b7c3b8 48%, #c7d1c6);
 }
-.sb-label strong{
-  display:block;
-  font-weight:inherit;
-  font-size:1.4rem;
-  letter-spacing:-.02em;
-  line-height:1.2;
+:root[data-theme=dark] .sb-face.sb-cover{
+  background:
+    linear-gradient(122deg, transparent 61%, rgba(255,255,255,.05) 62%, transparent 63%),
+    radial-gradient(75% 50% at 90% 100%, rgba(0,0,0,.4), transparent 56%),
+    radial-gradient(40% 30% at 8% 0%, rgba(255,255,255,.05), transparent 42%),
+    linear-gradient(168deg, #3c3832, #2b2824 52%, #34302b);
+  color:#e6dcc8;
 }
-.sb-label span{
-  display:block;
-  margin-top:.4rem;
-  padding-top:.35rem;
-  border-top:1px solid rgba(28,27,24,.16);
-  font-size:.78rem;
-  opacity:.68;
+.sb-title{
+  position:absolute;
+  z-index:2;
+  left:13%;
+  top:30%;
+  margin:0;
+  padding:0;
+  background:none;
+  font-family:"Bookhand", cursive;
+  font-size:calc(var(--pw) * .15);
+  font-weight:400;
+  line-height:1;
+  letter-spacing:.005em;
+  color:rgba(62,50,36,.84);
+  transform:rotate(-4deg);
+  transform-origin:left center;
+  text-shadow:.35px .45px 0 rgba(62,50,36,.22);
 }
-.sb-end{justify-content:flex-end}
-.sb-end .sb-label{margin:0 0 16% 12%}
-.sb-end .sb-label strong{font-size:1.15rem}
+:root[data-theme=dark] .sb-title{
+  color:rgba(232,222,204,.88);
+  text-shadow:none;
+}
+.sb-face.sb-scratch{
+  background:
+    linear-gradient(to left, rgba(0,0,0,.08), transparent 9%),
+    radial-gradient(42% 28% at 16% 82%, rgba(90,60,20,.07), transparent 62%),
+    radial-gradient(36% 24% at 84% 14%, rgba(90,60,20,.055), transparent 60%),
+    var(--paper);
+}
+.sb-scrib{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:2;
+  color:rgba(52,44,34,.55);
+  pointer-events:none;
+}
+:root[data-theme=dark] .sb-scrib{color:rgba(220,210,192,.42)}
 .sb-art{
   flex:1;
   min-height:0;
@@ -315,7 +369,7 @@ html.sb-single .sb-leaf.flipped{
     <div class="sb-book at-start" id="sbBook" aria-label="Sketchbook of drawings">
       <div class="sb-leaf">
         <div class="sb-face sb-front sb-cover">
-          <div class="sb-label"><strong>Drawings</strong><span>Deen David</span></div>
+          <div class="sb-title">sketchbook</div>
         </div>
       </div>
     </div>
@@ -325,7 +379,34 @@ html.sb-single .sb-leaf.flipped{
     <span class="sb-count" id="sbCount" aria-live="polite"></span>
     <button type="button" class="sb-btn" id="sbNext">Next</button>
   </div>
-  <p class="sb-msg" id="sbMsg" hidden></p>
+  <template id="tpl-title"><div class="sb-title">sketchbook</div></template>
+<template id="tpl-scrib"><svg class="sb-scrib" viewBox="0 0 320 460" fill="none" aria-hidden="true">
+  <path d="M24 36c20-7 36 9 56-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M28 50c24-5 42 11 68-1" stroke="currentColor" stroke-width=".85" stroke-linecap="round" opacity=".55"/>
+  <path d="M36 64c18 2 30-7 50-2" stroke="currentColor" stroke-width=".65" stroke-linecap="round" opacity=".38"/>
+  <circle cx="98" cy="42" r="1.05" fill="currentColor" opacity=".32"/>
+  <circle cx="106" cy="48" r=".75" fill="currentColor" opacity=".26"/>
+  <circle cx="90" cy="56" r=".7" fill="currentColor" opacity=".2"/>
+  <path d="M16 98c46 12 78-8 124 6" stroke="currentColor" stroke-width=".7" stroke-linecap="round" opacity=".26"/>
+  <path d="M226 70c18-12 44-2 46 18 2 22-20 34-40 26-18-7-22-30-6-40" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".62"/>
+  <path d="M236 84c12 2 20 14 12 22" stroke="currentColor" stroke-width=".75" stroke-linecap="round" opacity=".4"/>
+  <ellipse cx="248" cy="168" rx="28" ry="10" fill="currentColor" opacity=".06"/>
+  <path d="M34 156c30-3 54 5 82-7" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" opacity=".48"/>
+  <path d="M38 146c32 9 50 3 78 15" stroke="currentColor" stroke-width=".95" stroke-linecap="round" opacity=".5"/>
+  <path d="M32 166c36 2 62-9 90 3" stroke="currentColor" stroke-width=".75" stroke-linecap="round" opacity=".34"/>
+  <path d="M72 214c12-16 32-8 34 8 2 18-20 28-36 16-18-14-8-40 16-44 28-5 46 20 38 44-8 26-44 32-64 12" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" opacity=".55"/>
+  <path d="M176 268h44v36h-44z" stroke="currentColor" stroke-width=".9" opacity=".4"/>
+  <path d="M176 268l44 36M220 268l-44 36" stroke="currentColor" stroke-width=".7" opacity=".32"/>
+  <path d="M262 236v18M254 245h18M256 238l14 14M270 238l-14 14" stroke="currentColor" stroke-width=".7" stroke-linecap="round" opacity=".3"/>
+  <path d="M36 328l54 9M34 340l58 7M32 352l52 11M40 364l42 7" stroke="currentColor" stroke-width=".8" stroke-linecap="round" opacity=".36"/>
+  <path d="M196 348c22-5 40 7 52 1" stroke="currentColor" stroke-width=".95" stroke-linecap="round" opacity=".46"/>
+  <path d="M232 336l16 14-18 1" stroke="currentColor" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round" opacity=".42"/>
+  <ellipse cx="86" cy="408" rx="36" ry="9" fill="currentColor" opacity=".05"/>
+  <path d="M206 396c10 7 10 18 2 24" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" opacity=".4"/>
+  <path d="M222 404c7 9 4 18-3 22" stroke="currentColor" stroke-width=".75" stroke-linecap="round" opacity=".3"/>
+  <path d="M184 424h30" stroke="currentColor" stroke-width=".6" stroke-linecap="round" opacity=".24"/>
+  <path d="M250 400c6-10 18-8 20 2 2 8-8 14-8 14" stroke="currentColor" stroke-width=".8" stroke-linecap="round" opacity=".28"/>
+</svg></template>
 </div>
 <footer class="site-footer">
   <hr class="full">
@@ -486,13 +567,14 @@ html.sb-single .sb-leaf.flipped{
   function face(p, side) {
     var f = el("div", "sb-face sb-" + side);
     if (!p || p.type === "blank") return f;
-    if (p.type === "cover" || p.type === "end") {
+    if (p.type === "cover") {
       f.classList.add("sb-cover");
-      if (p.type === "end") f.classList.add("sb-end");
-      var label = el("div", "sb-label");
-      label.appendChild(el("strong", "", p.type === "cover" ? "Drawings" : "Made from iterations."));
-      if (p.type === "cover") label.appendChild(el("span", "", "Deen David"));
-      f.appendChild(label);
+      var titleTpl = document.getElementById("tpl-title");
+      if (titleTpl) f.appendChild(titleTpl.content.cloneNode(true));
+    } else if (p.type === "end") {
+      f.classList.add("sb-scratch");
+      var scribTpl = document.getElementById("tpl-scrib");
+      if (scribTpl) f.appendChild(scribTpl.content.cloneNode(true));
     } else if (p.type === "art") {
       var art = el("div", "sb-art");
       var img = el("img");
